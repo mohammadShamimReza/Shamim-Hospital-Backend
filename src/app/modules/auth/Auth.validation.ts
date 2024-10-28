@@ -1,0 +1,56 @@
+import { z } from 'zod';
+
+const create = z.object({
+  body: z.object({
+    name: z.string({
+      required_error: 'Name is required',
+    }),
+    email: z
+      .string({
+        required_error: 'Email is required',
+      })
+      .email('Invalid email format'),
+    password: z
+      .string({
+        required_error: 'Password is required',
+      })
+      .min(8, 'Password must be at least 8 characters'),
+    address: z.string().optional(), // Address is optional in the model
+    profile_image: z.string().url('Invalid URL format').optional(), // Optional and validated as a URL
+    role: z.literal('patient').default('patient'), // Role always defaults to "patient"
+  }),
+});
+
+const login = z.object({
+  body: z.object({
+    email: z.string({
+      required_error: 'Email is required',
+    }),
+    password: z.string({
+      required_error: 'password is required',
+    }),
+  }),
+});
+
+const changePasswordZodSchema = z.object({
+  body: z.object({
+    oldPassword: z.string({
+      required_error: 'Old password  is required',
+    }),
+    newPassword: z.string({
+      required_error: 'New password  is required',
+    }),
+  }),
+});
+
+export const AuthValidation = {
+  create,
+  login,
+  changePasswordZodSchema,
+};
+
+
+
+
+
+

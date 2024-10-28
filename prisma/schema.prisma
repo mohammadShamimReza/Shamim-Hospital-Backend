@@ -1,80 +1,108 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// This is your Prisma schema file
 
 generator client {
   provider = "prisma-client-js"
 }
-// schema.prisma
 
 datasource db {
-  provider = "postgresql" // Change to your database provider (e.g., postgresql, mysql)
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 // User Model
 model User {
-  id       Int     @id @default(autoincrement())
-  name     String
-  email    String  @unique
-  password String
-  address  String?
-  role     Role
-}
+  id            Int            @id @default(autoincrement())
+  name          String
+  email         String         @unique
+  password      String
+  address       String?
+  profile_image String?
+  role String
+  appointments  Appointment[]
 
-// Enum for User Roles
-enum Role {
-  SuperAdmin
-  Admin
-  Patient
-  Staff
-  Nurse
+  @@map("user")
 }
 
 // Doctor Model
 model Doctor {
-  id               Int              @id @default(autoincrement())
+  id               Int               @id @default(autoincrement())
   name             String
-  email            String           @unique
+  email            String            @unique
   password         String
   address          String?
   profile_image    String?
+  role String
   appointmentSlots AppointmentSlot[]
   departmentId     Int?
-  department       Department?      @relation(fields: [departmentId], references: [id])
+  department       Department?       @relation(fields: [departmentId], references: [id])
   appointments     Appointment[]
+
+  @@map("doctor")
 }
 
-// Patient Model
-model Patient {
-  id           Int           @id @default(autoincrement())
-  name         String
-  email        String        @unique
-  password     String
-  address      String?
+// Nurse Model
+model Nurse {
+  id               Int               @id @default(autoincrement())
+  name             String
+  email            String            @unique
+  password         String
+  address          String?
+  profile_image    String?
+  departmentId     Int?
+  role String
+  department       Department?       @relation(fields: [departmentId], references: [id])
+
+  @@map("nurse")
+}
+
+// Staff Model
+model Staff {
+  id            Int               @id @default(autoincrement())
+  name          String
+  email         String            @unique
+  password      String
+  address       String?
   profile_image String?
-  appointments Appointment[]
+  role          String
+  departmentId     Int?
+  
+  department       Department?       @relation(fields: [departmentId], references: [id])
+
+  @@map("staff")
+}
+
+// Admin Model
+model Admin {
+  id            Int               @id @default(autoincrement())
+  name          String
+  email         String            @unique
+  password      String
+  address       String?
+  profile_image String?
+  role String
+
+  @@map("admin")
 }
 
 // Appointment Model
 model Appointment {
-  id                Int        @id @default(autoincrement())
-  doctorId          Int
+  id                Int          @id @default(autoincrement())
+  doctorId          Int?
   patientId         Int
   appointmentDate   DateTime
   prescriptionId    Int?
-  doctor            Doctor     @relation(fields: [doctorId], references: [id])
-  patient           Patient    @relation(fields: [patientId], references: [id])
-  prescription      Prescription[]
+  doctor            Doctor?      @relation(fields: [doctorId], references: [id])
+  patient           User?         @relation(fields: [patientId], references: [id])
+  prescription      Prescription?
 }
 
 // Department Model
 model Department {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   name       String
   doctors    Doctor[]
+  nurses     Nurse[]
+  staff       Staff[]
 }
 
 // AppointmentSlot Model
@@ -97,10 +125,10 @@ model Prescription {
 
 // Medication Model
 model Medication {
-  id            Int          @id @default(autoincrement())
-  name          String
-  dosage        String
-  frequency     String
+  id             Int           @id @default(autoincrement())
+  name           String
+  dosage         String
+  frequency      String
   prescriptionId Int
-  prescription  Prescription @relation(fields: [prescriptionId], references: [id])
+  prescription   Prescription  @relation(fields: [prescriptionId], references: [id])
 }

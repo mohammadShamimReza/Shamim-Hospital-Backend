@@ -1,11 +1,41 @@
 import express from "express";
 import { authRoutes } from "../modules/auth/Auth.routes";
+import { DoctorRoutes } from "../modules/doctor/Doctor.routes";
+import { NurseRoutes } from "../modules/nurse/Nurse.routes";
+import { DepartmentRoutes } from "../modules/department/Department.routes";
+import { RoomRoutes } from "../modules/room/Room.routes";
+import { NoticeRoutes } from "../modules/notice/Notice.routes";
+import { MedicationRoutes } from "../modules/medication/Medicaiton.routes";
 
 
 const router = express.Router();
 
 const moduleRoutes = [
-  {path: '/auth', routes: authRoutes}
+  { path: '/auth', routes: authRoutes },
+  {
+    path: '/doctor',
+    routes: DoctorRoutes,
+  },
+  {
+    path: '/nurse',
+    routes: NurseRoutes,
+  },
+  {
+    path: '/department',
+    routes: DepartmentRoutes,
+  },
+  {
+    path: '/room',
+    routes: RoomRoutes,
+  },
+  {
+    path: '/notice',
+    routes: NoticeRoutes,
+  },
+  {
+    path: '/medication',
+    routes: MedicationRoutes
+  }
 ];
 
 // ! comment out the below line 

@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+// schema.prisma
+
+datasource db {
+  provider = "postgresql" // Change to your database provider (e.g., postgresql, mysql)
+  url      = env("DATABASE_URL")
+}
+
+// User Model
+model User {
+  id       Int     @id @default(autoincrement())
+  name     String
+  email    String  @unique
+  password String
+  address  String?
+  role     Role
+}
+
+// Enum for User Roles
+enum Role {
+  SuperAdmin
+  Admin
+  Patient
+  Staff
+  Nurse
+}
+
+// Doctor Model
+model Doctor {
+  id               Int              @id @default(autoincrement())
+  name             String
+  email            String           @unique
+  password         String
+  address          String?
+  profile_image    String?
+  appointmentSlots AppointmentSlot[]
+  departmentId     Int?
+  department       Department?      @relation(fields: [departmentId], references: [id])
+  appointments     Appointment[]
+}
+
+// Patient Model
+model Patient {
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String        @unique
+  password     String
+  address      String?
+  profile_image String?
+  appointments Appointment[]
+}
+
+// Appointment Model
+model Appointment {
+  id                Int        @id @default(autoincrement())
+  doctorId          Int
+  patientId         Int
+  appointmentDate   DateTime
+  prescriptionId    Int?
+  doctor            Doctor     @relation(fields: [doctorId], references: [id])
+  patient           Patient    @relation(fields: [patientId], references: [id])
+  prescription      Prescription[]
+}
+
+// Department Model
+model Department {
+  id         Int      @id @default(autoincrement())
+  name       String
+  doctors    Doctor[]
+}
+
+// AppointmentSlot Model
+model AppointmentSlot {
+  id          Int      @id @default(autoincrement())
+  doctorId    Int
+  date        DateTime
+  isAvailable Boolean  @default(true)
+  doctor      Doctor   @relation(fields: [doctorId], references: [id])
+}
+
+// Prescription Model
+model Prescription {
+  id            Int           @id @default(autoincrement())
+  appointmentId Int           @unique
+  medications   Medication[]
+  notes         String?
+  appointment   Appointment   @relation(fields: [appointmentId], references: [id])
+}
+
+// Medication Model
+model Medication {
+  id            Int          @id @default(autoincrement())
+  name          String
+  dosage        String
+  frequency     String
+  prescriptionId Int
+  prescription  Prescription @relation(fields: [prescriptionId], references: [id])
+}

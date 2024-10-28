@@ -15,9 +15,9 @@ const create = z.object({
         required_error: 'Password is required',
       })
       .min(8, 'Password must be at least 8 characters'),
-    address: z.string().optional(), // Address is optional in the model
-    profile_image: z.string().url('Invalid URL format').optional(), // Optional and validated as a URL
-    role: z.literal('patient').default('patient'), // Role always defaults to "patient"
+    address: z.string({ required_error: 'address is required' }), // Address is optional in the model
+    profile_image: z.string().url('Invalid URL format'), // Optional and validated as a URL
+    role: z.string({ required_error: 'role is required' }),
   }),
 });
 

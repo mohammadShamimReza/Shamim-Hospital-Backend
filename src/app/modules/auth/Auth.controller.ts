@@ -46,7 +46,7 @@ const logIn = catchAsync(async (req: Request, res: Response) => {
 });
 
 const me = catchAsync(async (req: Request, res: Response) => { 
-  console.log(req.header, 'this is me');
+  console.log(req.headers, 'this is me');
   const token = req.headers.authorization;
   if (!token) {
     throw new ApiError(400, 'You are not authorized me');
@@ -55,6 +55,14 @@ const me = catchAsync(async (req: Request, res: Response) => {
     token,
     config.jwt.secret as Secret,
   );
+  console.log(verifiedUser, 'this is verifiedUser');
+  const result = await AuthService.me(verifiedUser);
+   sendResponse(res, {
+     statusCode: 200,
+     success: true,
+     message: 'User founded successfully !',
+     data: result,
+   });
 })
 
 const changePassword = catchAsync(async (req: Request, res: Response) => {

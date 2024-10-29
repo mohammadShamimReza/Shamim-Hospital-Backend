@@ -213,6 +213,64 @@ const forgotPass = async (payload: { email: string }) => {
   };
 };
 
+const me = async (userData: JwtPayload) => {
+  const { email, role, id } = userData;
+
+  let isUserExistWithPassword;
+  if (role === 'admin') {
+    isUserExistWithPassword = await prisma.admin.findFirst({
+      where: {
+        email,
+        role,
+        id,
+      },
+    });
+  }
+  if (role === 'patient') {
+    isUserExistWithPassword = await prisma.user.findFirst({
+      where: {
+        email,
+        role,
+        id,
+      },
+    });
+  }
+  if (role === 'doctor') {
+    isUserExistWithPassword = await prisma.doctor.findFirst({
+      where: {
+        email,
+        role,
+        id,
+      },
+    });
+  }
+  if (role === 'nurse') {
+    isUserExistWithPassword = await prisma.nurse.findFirst({
+      where: {
+        email,
+        role,
+        id,
+      },
+    });
+  }
+  if (role === 'staff') {
+    isUserExistWithPassword = await prisma.staff.findFirst({
+      where: {
+        email,
+        role,
+        id,
+      },
+    });
+  }
+  if (!isUserExistWithPassword) {
+    throw new ApiError(500, 'You are not authorized to access this resource!');
+  }
+
+  console.log(isUserExistWithPassword, 'this si user');
+
+  return isUserExistWithPassword;
+};
+
 const resetPassword = async (
   payload: { id: number; newPassword: string },
   // token: string,
@@ -249,6 +307,7 @@ const resetPassword = async (
 };
 
 export const AuthService = {
+  me,
   signUp,
   logIn,
   changePassword,

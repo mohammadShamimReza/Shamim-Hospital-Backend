@@ -82,47 +82,48 @@ if (userRole === 'doctor') {
   const { role, id } = isUserExist;
 
   let isUserExistWithPassword
-   if (userRole === 'admin') {
+  if (userRole === 'admin') {
     isUserExistWithPassword = await prisma.admin.findFirst({
       where: {
         email,
         password,
       },
     });
-   }
-   if (userRole === 'patient') {
-      isUserExistWithPassword = await prisma.user.findFirst({
-        where: {
-          email,
-          password,
-        },
-      });
-   }
-   if (userRole === 'doctor') {
-     isUserExistWithPassword = await prisma.doctor.findFirst({
-       where: {
-         email,
-         password,
-       },
-     });
-   }
-   if (userRole === 'nurse') {
-      isUserExistWithPassword = await prisma.nurse.findFirst({
-        where: {
-          email,
-          password,
-        },
-      });
-   }
-   if (userRole === 'staff') {
-      isUserExistWithPassword = await prisma.staff.findFirst({
-        where: {
-          email,
-          password,
-        },
-      });
-   }
-
+  }
+  if (userRole === 'patient') {
+    isUserExistWithPassword = await prisma.user.findFirst({
+      where: {
+        email,
+        password,
+      },
+    });
+  }
+  if (userRole === 'doctor') {
+    isUserExistWithPassword = await prisma.doctor.findFirst({
+      where: {
+        email,
+        password,
+      },
+    });
+  }
+  if (userRole === 'nurse') {
+    isUserExistWithPassword = await prisma.nurse.findFirst({
+      where: {
+        email,
+        password,
+      },
+    });
+  }
+  if (userRole === 'staff') {
+    isUserExistWithPassword = await prisma.staff.findFirst({
+      where: {
+        email,
+        password,
+      },
+    });
+  }
+  
+  console.log(isUserExistWithPassword, 'this si user')
   
 
   if (!isUserExistWithPassword) {

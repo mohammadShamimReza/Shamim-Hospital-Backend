@@ -3,6 +3,9 @@ import catchAsync from '../../../shared/catchAsync';
 import { AuthService } from './Auth.service';
 import config from '../../../config/index';
 import sendResponse from '../../../shared/sendResponse';
+import ApiError from '../../../errors/ApiError';
+import { jwtHelpers } from '../../../helpers/jwtHelpers';
+import { Secret } from 'jsonwebtoken';
 
 
 const signUp = catchAsync(async (req: Request, res: Response) => {
@@ -42,6 +45,18 @@ const logIn = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const me = catchAsync(async (req: Request, res: Response) => { 
+  console.log(req.header, 'this is me');
+  const token = req.headers.authorization;
+  if (!token) {
+    throw new ApiError(400, 'You are not authorized me');
+  }
+  const verifiedUser = jwtHelpers.verifyToken(
+    token,
+    config.jwt.secret as Secret,
+  );
+})
+
 const changePassword = catchAsync(async (req: Request, res: Response) => {
   const user = req.user;
   const { ...passwordData } = req.body;
@@ -77,6 +92,7 @@ const resetPassword = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const AuthController = {
+  me,
   signUp,
   logIn,
   changePassword,

@@ -19,6 +19,11 @@ router.post(
   AuthController.logIn,
 );
 
+router.get(
+  '/me',
+  AuthController.me,
+);
+
 router.patch(
   '/change-password',
   validateRequest(AuthValidation.changePasswordZodSchema),

@@ -29,6 +29,7 @@ const login = z.object({
     password: z.string({
       required_error: 'password is required',
     }),
+    role: z.string({ required_error: 'role is required' }), // Role is optional in the model
   }),
 });
 

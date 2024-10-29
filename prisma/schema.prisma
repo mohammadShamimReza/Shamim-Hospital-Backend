@@ -36,8 +36,6 @@ model Doctor {
   passingYear      String
   workplace        String
   appointmentSlots AppointmentSlot[]
-  departmentId     Int?
-  department       Department?       @relation(fields: [departmentId], references: [id])
   appointments     Appointment[]
   Service          Service?          @relation(fields: [serviceId], references: [id])
   serviceId        Int?
@@ -94,8 +92,6 @@ model Service {
   description  String
   duration     Int
   price        Float
-  departmentId Int?
-  Department   Department?   @relation(fields: [departmentId], references: [id])
   doctor       Doctor[]
   appointment  Appointment[]
 
@@ -117,24 +113,10 @@ model Appointment {
   @@map("appointment")
 }
 
-// Department Model
-model Department {
-  id      Int       @id @default(autoincrement())
-  name    String
-  doctors Doctor[]
-  nurses  Int
-  staff   Int
-  service Service[]
-  room    Room[]
-
-  @@map("department")
-}
 
 model Room {
   id           Int         @id @default(autoincrement())
   roomNumber   String
-  departmentId Int?
-  department   Department? @relation(fields: [departmentId], references: [id])
   nurses       Nurse[]
   staff        Staff[]
 

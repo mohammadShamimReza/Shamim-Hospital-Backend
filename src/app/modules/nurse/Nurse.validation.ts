@@ -10,6 +10,7 @@ const createNurse = z.object({
     address: z.string().optional(),
     profile_image: z.string().url().optional(),
     role: z.string({ required_error: 'Role is required' }),
+    phone: z.number({ required_error: 'Phone is required' }),
   }),
 });
 
@@ -21,6 +22,7 @@ const updateNurse = z.object({
     address: z.string().optional(),
     profile_image: z.string().url().optional(),
     role: z.string().optional(),
+    phone: z.number().optional(),
   }),
 });
 

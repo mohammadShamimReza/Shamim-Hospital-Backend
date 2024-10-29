@@ -13,9 +13,33 @@ import { sendEmail } from './sendResetMail.js';
 
 
 const signUp = async (data: User) => {
-  const result = await prisma.user.create({
-    data,
-  });
+  const userRole = data.role;
+
+  let result: {
+    name: string;
+    id: number;
+    email: string;
+    password: string;
+    phone: number;
+    address: string | null;
+    profile_image: string | null;
+    role: string;
+  };
+
+  if (userRole === 'admin') {
+    result = await prisma.admin.create({ data });
+  } else if (userRole === 'patient') {
+    result = await prisma.user.create({ data });
+  } else if (userRole === 'doctor') {
+    result = await prisma.doctor.create({ data });
+  } else if (userRole === 'nurse') {
+    result = await prisma.nurse.create({ data });
+  } else if (userRole === 'staff') {
+    result = await prisma.staff.create({ data });
+  } else {
+    throw new Error('Invalid user role');
+  }
+
   const { email, role, id, password } = result;
   const accessToken = jwtHelpers.createToken(
     { email, role, id },
@@ -33,6 +57,7 @@ const signUp = async (data: User) => {
     refreshToken,
   };
 };
+
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const logIn = async (LoginData: { email: string; password: string; role: string }) => {

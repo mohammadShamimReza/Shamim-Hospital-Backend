@@ -15,6 +15,7 @@ model User {
   name          String
   email         String        @unique
   password      String
+  phone         Int
   address       String?
   profile_image String?
   role          String
@@ -29,12 +30,13 @@ model Doctor {
   name             String
   email            String            @unique
   password         String
+  phone            Int
   address          String?
   profile_image    String?
   role             String
-  designation      String
-  passingYear      String
-  workplace        String
+  designation      String?
+  passingYear      String?
+  workplace        String?
   appointmentSlots AppointmentSlot[]
   appointments     Appointment[]
   Service          Service?          @relation(fields: [serviceId], references: [id])
@@ -51,8 +53,9 @@ model Nurse {
   password      String
   address       String?
   profile_image String?
-  roomId        Int?
+  phone         Int
   role          String
+  roomId        Int?
   room          Room?   @relation(fields: [roomId], references: [id])
 
   @@map("nurse")
@@ -64,6 +67,7 @@ model Staff {
   name          String
   email         String  @unique
   password      String
+  phone         Int
   address       String?
   profile_image String?
   role          String
@@ -78,6 +82,7 @@ model Admin {
   id            Int     @id @default(autoincrement())
   name          String
   email         String  @unique
+  phone         Int
   password      String
   address       String?
   profile_image String?

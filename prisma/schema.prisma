@@ -87,16 +87,23 @@ model Admin {
 }
 
 model Service {
-  id           Int           @id @default(autoincrement())
-  serviceName  String
-  description  String
-  duration     Int
-  price        Float
-  doctor       Doctor[]
-  appointment  Appointment[]
+  id               Int           @id @default(autoincrement())
+  serviceName      String
+  description      String
+  duration         Int           // Duration in minutes
+  price            Float
+  serviceType      String        // e.g., "Consultation", "Surgery", "Therapy"
+  bodyPart         String        // e.g., "Heart", "Lungs", "Skin"
+  specialty        String        // e.g., "Cardiology", "Dermatology"
+  isEmergency      Boolean       // If the service can be provided in an emergency
+  maxAppointments  Int?          // Max appointments allowed per day
+  prerequisites    String?       // Any pre-appointment requirements
+  doctor           Doctor[]
+  appointment      Appointment[]
 
   @@map("service")
 }
+
 
 // Appointment Model
 model Appointment {

@@ -95,7 +95,7 @@ model Service {
   serviceType      String        // e.g., "Consultation", "Surgery", "Therapy"
   bodyPart         String        // e.g., "Heart", "Lungs", "Skin"
   specialty        String        // e.g., "Cardiology", "Dermatology"
-  maxAppointments  Int?          // Max appointments allowed per day
+ 
   doctor           Doctor[]
   appointment      Appointment[]
 

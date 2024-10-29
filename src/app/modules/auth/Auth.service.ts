@@ -35,26 +35,95 @@ const signUp = async (data: User) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const logIn = async (LoginData: { email: string; password: string }) => {
-  const { email, password } = LoginData;
-
-  const isUserExist = await prisma.user.findFirst({
+const logIn = async (LoginData: { email: string; password: string; role: string }) => {
+  console.log(LoginData)
+  const { email, password, role: userRole } = LoginData;
+  
+  let isUserExist
+  if (userRole === 'admin') { 
+    console.log("here")
+     isUserExist = await prisma.admin.findFirst({
+      where: {
+        email,
+      },
+    });
+  }
+   if (userRole === 'patient') {
+     isUserExist = await prisma.user.findFirst({
+       where: {
+         email,
+       },
+     });
+   }
+if (userRole === 'doctor') {
+  isUserExist = await prisma.doctor.findFirst({
     where: {
       email,
     },
   });
+}if (userRole === 'nurse') {
+  isUserExist = await prisma.nurse.findFirst({
+    where: {
+      email,
+    },
+  });
+}if (userRole === 'staff') {
+  isUserExist = await prisma.staff.findFirst({
+    where: {
+      email,
+    },
+  });
+}
+  
 
   if (!isUserExist) {
     throw new ApiError(500, 'user not found');
   }
   const { role, id } = isUserExist;
 
-  const isUserExistWithPassword = await prisma.user.findFirst({
-    where: {
-      email,
-      password,
-    },
-  });
+  let isUserExistWithPassword
+   if (userRole === 'admin') {
+    isUserExistWithPassword = await prisma.admin.findFirst({
+      where: {
+        email,
+        password,
+      },
+    });
+   }
+   if (userRole === 'patient') {
+      isUserExistWithPassword = await prisma.user.findFirst({
+        where: {
+          email,
+          password,
+        },
+      });
+   }
+   if (userRole === 'doctor') {
+     isUserExistWithPassword = await prisma.doctor.findFirst({
+       where: {
+         email,
+         password,
+       },
+     });
+   }
+   if (userRole === 'nurse') {
+      isUserExistWithPassword = await prisma.nurse.findFirst({
+        where: {
+          email,
+          password,
+        },
+      });
+   }
+   if (userRole === 'staff') {
+      isUserExistWithPassword = await prisma.staff.findFirst({
+        where: {
+          email,
+          password,
+        },
+      });
+   }
+
+  
 
   if (!isUserExistWithPassword) {
     throw new ApiError(500, 'password not matched');

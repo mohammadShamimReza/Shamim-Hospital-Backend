@@ -27,9 +27,7 @@ const createService = z.object({
     }),
     specialty: z.string({
       required_error: 'Specialty is required',
-    }),
-    maxAppointments: z.number().int().optional(),
-    departmentId: z.number().int().optional(),
+    }),departmentId: z.number().int().optional(),
   }),
 });
 
@@ -41,9 +39,7 @@ const updateService = z.object({
     price: z.number().optional(),
     serviceType: z.string().optional(),
     bodyPart: z.string().optional(),
-    specialty: z.string().optional(),
-    maxAppointments: z.number().int().optional(),
-    departmentId: z.number().int().optional(),
+    specialty: z.string().optional(), departmentId: z.number().int().optional(),
   }),
 });
 

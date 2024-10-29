@@ -95,9 +95,7 @@ model Service {
   serviceType      String        // e.g., "Consultation", "Surgery", "Therapy"
   bodyPart         String        // e.g., "Heart", "Lungs", "Skin"
   specialty        String        // e.g., "Cardiology", "Dermatology"
-  isEmergency      Boolean       // If the service can be provided in an emergency
   maxAppointments  Int?          // Max appointments allowed per day
-  prerequisites    String?       // Any pre-appointment requirements
   doctor           Doctor[]
   appointment      Appointment[]
 

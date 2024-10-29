@@ -10,6 +10,9 @@ const createDoctor = z.object({
     address: z.string().optional(),
     profile_image: z.string().url().optional(),
     role: z.string({ required_error: 'Role is required' }),
+    designation: z.string({ required_error: 'Role is required' }),
+    passingYear: z.string({ required_error: 'Role is required' }),
+    workplace: z.string({ required_error: 'Role is required' }),
   }),
 });
 

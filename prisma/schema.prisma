@@ -32,6 +32,9 @@ model Doctor {
   address          String?
   profile_image    String?
   role             String
+  designation      String
+  passingYear      String
+  workplace        String
   appointmentSlots AppointmentSlot[]
   departmentId     Int?
   department       Department?       @relation(fields: [departmentId], references: [id])

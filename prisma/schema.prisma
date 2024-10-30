@@ -36,7 +36,6 @@ model Doctor {
   role             String
   designation      String?
   passingYear      String?
-  workplace        String?
   appointmentSlots AppointmentSlot[]
   appointments     Appointment[]
   Service          Service?          @relation(fields: [serviceId], references: [id])

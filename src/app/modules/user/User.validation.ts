@@ -19,7 +19,6 @@ const updateStaff = z.object({
     email: z.string().email({ message: 'Invalid email format' }).optional(),
     password: z.string().optional(),
     address: z.string().optional(),
-    profile_image: z.string().url().optional(),
     role: z.string().optional(),
   }),
 });

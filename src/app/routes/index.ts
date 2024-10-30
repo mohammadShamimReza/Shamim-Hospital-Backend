@@ -7,7 +7,7 @@ import { RoomRoutes } from "../modules/room/Room.routes";
 import { NoticeRoutes } from "../modules/notice/Notice.routes";
 import { MedicationRoutes } from "../modules/medication/Medicaiton.routes";
 import { StaffRoutes } from "../modules/staff/Staff.routes";
-import { UserRoutes } from "../modules/user/Staff.routes";
+import { UserRoutes } from "../modules/user/User.routes";
 
 
 const router = express.Router();

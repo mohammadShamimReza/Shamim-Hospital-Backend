@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { StatusCodes } from 'http-status-codes';
-import { userService } from './Staff.service';
+import { userService } from './User.service';
 
 
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {

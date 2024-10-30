@@ -12,7 +12,6 @@ const createDoctor = z.object({
     role: z.string({ required_error: 'Role is required' }),
     designation: z.string({ required_error: 'Role is required' }),
     passingYear: z.string({ required_error: 'Role is required' }),
-    workplace: z.string({ required_error: 'Role is required' }),
   }),
 });
 

@@ -4,12 +4,12 @@ import prisma from '../../../shared/prisma';
 
 
 const getAllFromDb = async (): Promise<User[]> => {
-  const result = await prisma.staff.findMany({});
+  const result = await prisma.user.findMany({});
   return result;
 };
 
 const getById = async (id: number): Promise<User | null> => {
-  const result = await prisma.staff.findUnique({
+  const result = await prisma.user.findUnique({
     where: {
       id,
     },
@@ -21,7 +21,7 @@ const updateUser = async (
   id: number,
   payload: Partial<User>,
 ): Promise<User> => {
-  const result = await prisma.staff.update({
+  const result = await prisma.user.update({
     where: {
       id,
     },
@@ -31,7 +31,7 @@ const updateUser = async (
 };
 
 const deleteUsesr = async (id: number): Promise<User> => {
-  const result = await prisma.staff.delete({
+  const result = await prisma.user.delete({
     where: {
       id,
     },

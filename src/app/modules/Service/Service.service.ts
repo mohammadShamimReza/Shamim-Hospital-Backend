@@ -8,9 +8,7 @@ const createService = async (payload: Service): Promise<Service> => {
 
 const getAllFromDb = async (): Promise<Service[]> => {
   const result = await prisma.service.findMany({
-    include: {
-      Department: true, // include related Department if necessary
-    },
+   
   });
   return result;
 };
@@ -18,9 +16,7 @@ const getAllFromDb = async (): Promise<Service[]> => {
 const getById = async (id: number): Promise<Service | null> => {
   const result = await prisma.service.findUnique({
     where: { id },
-    include: {
-      Department: true, // include related Department if necessary
-    },
+    
   });
   return result;
 };

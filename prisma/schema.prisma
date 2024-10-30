@@ -94,12 +94,10 @@ model Service {
   id               Int           @id @default(autoincrement())
   serviceName      String
   description      String
-  duration         Int           // Duration in minutes
+
   price            Float
   serviceType      String        // e.g., "Consultation", "Surgery", "Therapy"
-  bodyPart         String        // e.g., "Heart", "Lungs", "Skin"
-  specialty        String        // e.g., "Cardiology", "Dermatology"
- 
+  bodyPart         String        // e.g., "Heart", "Lungs", "Skin"   
   doctor           Doctor[]
   appointment      Appointment[]
 

@@ -124,6 +124,7 @@ model Appointment {
 model Room {
   id           Int         @id @default(autoincrement())
   roomNumber   String
+  needNurseAndStaff Int
   nurses       Nurse[]
   staff        Staff[]
 

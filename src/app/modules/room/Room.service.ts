@@ -8,9 +8,7 @@ const createRoom = async (payload: Room): Promise<Room> => {
 
 const getAllFromDb = async (): Promise<Room[]> => {
   const result = await prisma.room.findMany({
-    include: {
-      department: true, // include related department if needed
-    },
+ 
   });
   return result;
 };
@@ -18,9 +16,7 @@ const getAllFromDb = async (): Promise<Room[]> => {
 const getById = async (id: number): Promise<Room | null> => {
   const result = await prisma.room.findUnique({
     where: { id },
-    include: {
-      department: true, // include related department if needed
-    },
+   
   });
   return result;
 };

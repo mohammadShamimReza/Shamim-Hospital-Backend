@@ -12,7 +12,7 @@ router.get('/', StaffController.getAllFromDB);
 
 router.patch(
   '/:id',
-  auth(ENUM_USER_ROLE.ADMIN),
+  // auth(ENUM_USER_ROLE.ADMIN),
   validateRequest(StaffValidation.updateStaff),
   StaffController.updateUser,
 );

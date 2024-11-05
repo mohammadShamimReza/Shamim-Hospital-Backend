@@ -5,8 +5,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // User Model
@@ -91,42 +92,40 @@ model Admin {
 }
 
 model Service {
-  id               Int           @id @default(autoincrement())
-  serviceName      String
-  description      String
+  id          Int    @id @default(autoincrement())
+  serviceName String
+  description String
 
-  price            Float
-  serviceType      String        // e.g., "Consultation", "Surgery", "Therapy"
-  bodyPart         String        // e.g., "Heart", "Lungs", "Skin"   
-  doctor           Doctor[]
-  appointment      Appointment[]
+  price       Float
+  serviceType String // e.g., "Consultation", "Surgery", "Therapy"
+  bodyPart    String // e.g., "Heart", "Lungs", "Skin"   
+  doctor      Doctor[]
+  appointment Appointment[]
 
   @@map("service")
 }
 
-
 // Appointment Model
 model Appointment {
-  id              Int           @id @default(autoincrement())
+  id              Int      @id @default(autoincrement())
   doctorId        Int
   patientId       Int
   appointmentDate DateTime
-  doctor          Doctor       @relation(fields: [doctorId], references: [id])
-  patient         User         @relation(fields: [patientId], references: [id])
+  doctor          Doctor   @relation(fields: [doctorId], references: [id])
+  patient         User     @relation(fields: [patientId], references: [id])
   prescription    String?
   serviceId       Int
-  Service         Service      @relation(fields: [serviceId], references: [id])
+  Service         Service  @relation(fields: [serviceId], references: [id])
 
   @@map("appointment")
 }
 
-
 model Room {
-  id           Int         @id @default(autoincrement())
-  roomNumber   String
+  id                Int     @id @default(autoincrement())
+  roomNumber        String
   needNurseAndStaff Int
-  nurses       Nurse[]
-  staff        Staff[]
+  nurses            Nurse[]
+  staff             Staff[]
 
   @@map("room")
 }
@@ -142,10 +141,9 @@ model AppointmentSlot {
 
 // Prescription Model
 
-
 // Medication Model
 model Medication {
-  id             Int          @id @default(autoincrement())
+  id             Int    @id @default(autoincrement())
   name           String
   dosage         String
   prescriptionId Int

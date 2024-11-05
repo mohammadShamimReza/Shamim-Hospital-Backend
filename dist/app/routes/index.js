@@ -2,14 +2,13 @@ import express from "express";
 import { authRoutes } from "../modules/auth/Auth.routes";
 import { DoctorRoutes } from "../modules/doctor/Doctor.routes";
 import { NurseRoutes } from "../modules/nurse/Nurse.routes";
-import { RoomRoutes } from "../modules/room/Room.routes";
+import { ServiceRoutes } from '../modules/Service/Service.routes';
+import { AdminRoutes } from '../modules/admin/Admin.routes';
+import { AppointmentRoutes } from '../modules/appointment/Appointment.routes';
 import { NoticeRoutes } from "../modules/notice/Notice.routes";
-import { MedicationRoutes } from "../modules/medication/Medicaiton.routes";
+import { RoomRoutes } from '../modules/room/Room.routes';
 import { StaffRoutes } from "../modules/staff/Staff.routes";
-import { UserRoutes } from "../modules/user/User.routes";
-import { ServiceRoutes } from "../modules/Service/Service.routes";
-import { AdminRoutes } from "../modules/admin/Admin.routes";
-import { AppointmentRoutes } from "../modules/appointment/Appointment.routes";
+import { UserRoutes } from '../modules/user/User.routes';
 const router = express.Router();
 const moduleRoutes = [
     { path: '/auth', routes: authRoutes },
@@ -32,10 +31,6 @@ const moduleRoutes = [
     {
         path: '/notice',
         routes: NoticeRoutes,
-    },
-    {
-        path: '/medication',
-        routes: MedicationRoutes,
     },
     {
         path: '/staff',

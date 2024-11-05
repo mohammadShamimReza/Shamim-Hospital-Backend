@@ -13,7 +13,20 @@ const getAllFromDb = async (): Promise<Doctor[]> => {
 const getById = async (id: number): Promise<Doctor | null> => {
   const result = await prisma.doctor.findUnique({
     where: {
-      id
+      id,
+    },
+    include: {
+      
+      appointments: {
+        select: {
+          
+          id: true,
+          appointmentDate: true,
+          prescription: true,
+          patient: true,
+          Service: true,
+        },
+      },
     },
   });
   return result;

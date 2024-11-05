@@ -7,7 +7,13 @@ const createAppointment = async (payload: Appointment): Promise<Appointment> => 
 };
 
 const getAllFromDb = async (): Promise<Appointment[]> => {
-  const result = await prisma.appointment.findMany({});
+  const result = await prisma.appointment.findMany({
+    include: {
+      patient: true,
+      doctor: true,
+      Service: true,
+   
+  } });
   return result;
 };
 const getById = async (id: number): Promise<Appointment | null> => {

@@ -36,6 +36,7 @@ const updateAppointment = z.object({
       .optional()
       .transform(date => (date ? new Date(date) : undefined)), // Convert to Date if provided
     serviceId: z.number().int().positive().optional(),
+    prescription: z.string().optional(),
   }),
 });
 

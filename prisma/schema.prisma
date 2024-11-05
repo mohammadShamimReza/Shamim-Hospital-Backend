@@ -113,7 +113,7 @@ model Appointment {
   appointmentDate DateTime
   doctor          Doctor       @relation(fields: [doctorId], references: [id])
   patient         User         @relation(fields: [patientId], references: [id])
-  prescription    Prescription?
+  prescription    String?
   serviceId       Int
   Service         Service      @relation(fields: [serviceId], references: [id])
 
@@ -141,15 +141,7 @@ model AppointmentSlot {
 }
 
 // Prescription Model
-model Prescription {
-  id            Int          @id @default(autoincrement())
-  appointmentId Int          @unique
-  medications   Medication[]
-  notes         String?
-  appointment   Appointment  @relation(fields: [appointmentId], references: [id])
 
-  @@map("prescription")
-}
 
 // Medication Model
 model Medication {
@@ -157,7 +149,6 @@ model Medication {
   name           String
   dosage         String
   prescriptionId Int
-  prescription   Prescription @relation(fields: [prescriptionId], references: [id])
 
   @@map("medication")
 }
@@ -168,7 +159,6 @@ model Notice {
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  authorId  Int
 
   @@map("notice")
 }

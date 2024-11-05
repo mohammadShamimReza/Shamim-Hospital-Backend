@@ -1,15 +1,21 @@
-import express from 'express';
-import { ENUM_USER_ROLE } from '../../../enums/user';
-import auth from '../../middleware/auth';
-import validateRequest from '../../middleware/validateRequest';
-import { StaffController } from './Staff.controller';
-import { StaffValidation } from './Staff.validation';
-const router = express.Router();
-router.get('/:id', StaffController.getById);
-router.get('/', StaffController.getAllFromDB);
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.StaffRoutes = void 0;
+const express_1 = __importDefault(require("express"));
+const user_1 = require("../../../enums/user");
+const auth_1 = __importDefault(require("../../middleware/auth"));
+const validateRequest_1 = __importDefault(require("../../middleware/validateRequest"));
+const Staff_controller_1 = require("./Staff.controller");
+const Staff_validation_1 = require("./Staff.validation");
+const router = express_1.default.Router();
+router.get('/:id', Staff_controller_1.StaffController.getById);
+router.get('/', Staff_controller_1.StaffController.getAllFromDB);
 router.post('/create', 
 // auth(ENUM_USER_ROLE.ADMIN),
-validateRequest(StaffValidation.createStaff), StaffController.createStaff);
-router.patch('/:id', auth(ENUM_USER_ROLE.ADMIN), validateRequest(StaffValidation.updateStaff), StaffController.updateStaff);
-router.delete('/:id', auth(ENUM_USER_ROLE.ADMIN), StaffController.deleteStaff);
-export const StaffRoutes = router;
+(0, validateRequest_1.default)(Staff_validation_1.StaffValidation.createStaff), Staff_controller_1.StaffController.createStaff);
+router.patch('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN), (0, validateRequest_1.default)(Staff_validation_1.StaffValidation.updateStaff), Staff_controller_1.StaffController.updateStaff);
+router.delete('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN), Staff_controller_1.StaffController.deleteStaff);
+exports.StaffRoutes = router;

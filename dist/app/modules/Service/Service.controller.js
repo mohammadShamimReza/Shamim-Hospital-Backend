@@ -1,58 +1,73 @@
-import catchAsync from '../../../shared/catchAsync';
-import sendResponse from '../../../shared/sendResponse';
-import { ServiceService } from './Service.service';
-import { StatusCodes } from 'http-status-codes';
-const createService = catchAsync(async (req, res) => {
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ServiceController = void 0;
+const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
+const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
+const Service_service_1 = require("./Service.service");
+const http_status_codes_1 = require("http-status-codes");
+const createService = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
-    const result = await ServiceService.createService(payload);
-    sendResponse(res, {
-        statusCode: StatusCodes.OK,
+    const result = yield Service_service_1.ServiceService.createService(payload);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
         message: 'Service created successfully',
         data: result,
     });
-});
-const getAllFromDB = catchAsync(async (req, res) => {
-    const result = await ServiceService.getAllFromDb();
-    sendResponse(res, {
-        statusCode: StatusCodes.OK,
+}));
+const getAllFromDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield Service_service_1.ServiceService.getAllFromDb();
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
         message: 'Services fetched successfully',
         data: result,
     });
-});
-const getById = catchAsync(async (req, res) => {
+}));
+const getById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const result = await ServiceService.getById(Number(id));
-    sendResponse(res, {
-        statusCode: StatusCodes.OK,
+    const result = yield Service_service_1.ServiceService.getById(Number(id));
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
         message: 'Service fetched successfully',
         data: result,
     });
-});
-const updateService = catchAsync(async (req, res) => {
+}));
+const updateService = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     const payload = req.body;
-    const result = await ServiceService.updateService(Number(id), payload);
-    sendResponse(res, {
-        statusCode: StatusCodes.OK,
+    const result = yield Service_service_1.ServiceService.updateService(Number(id), payload);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
         message: 'Service updated successfully',
         data: result,
     });
-});
-const deleteService = catchAsync(async (req, res) => {
+}));
+const deleteService = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
-    const result = await ServiceService.deleteService(Number(id));
-    sendResponse(res, {
-        statusCode: StatusCodes.OK,
+    const result = yield Service_service_1.ServiceService.deleteService(Number(id));
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
         message: 'Service deleted successfully',
         data: result,
     });
-});
-export const ServiceController = {
+}));
+exports.ServiceController = {
     createService,
     getAllFromDB,
     getById,

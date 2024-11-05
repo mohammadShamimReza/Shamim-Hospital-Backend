@@ -1,57 +1,62 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Prisma } from '@prisma/client';
-import { ZodError } from 'zod';
-import config from '../../config';
-import ApiError from '../../errors/ApiError';
-import handleClientError from '../../errors/handleClientError';
-import handleValidationError from '../../errors/handleValidationError';
-import handleZodError from '../../errors/handleZodError';
+const client_1 = require("@prisma/client");
+const zod_1 = require("zod");
+const config_1 = __importDefault(require("../../config"));
+const ApiError_1 = __importDefault(require("../../errors/ApiError"));
+const handleClientError_1 = __importDefault(require("../../errors/handleClientError"));
+const handleValidationError_1 = __importDefault(require("../../errors/handleValidationError"));
+const handleZodError_1 = __importDefault(require("../../errors/handleZodError"));
 const globalErrorHandler = (error, req, res, next) => {
-    config.env === 'development'
+    config_1.default.env === 'development'
         ? console.log(`🐱‍🏍 globalErrorHandler ~~`, { error })
         : console.log(`🐱‍🏍 globalErrorHandler ~~`, error);
     let statusCode = 500;
     let message = 'Something went wrong !';
     let errorMessages = [];
-    if (error instanceof Prisma.PrismaClientValidationError) {
-        const simplifiedError = handleValidationError(error);
+    if (error instanceof client_1.Prisma.PrismaClientValidationError) {
+        const simplifiedError = (0, handleValidationError_1.default)(error);
         statusCode = simplifiedError.statusCode;
         message = simplifiedError.message;
         errorMessages = simplifiedError.errorMessages;
     }
-    else if (error instanceof ZodError) {
-        const simplifiedError = handleZodError(error);
+    else if (error instanceof zod_1.ZodError) {
+        const simplifiedError = (0, handleZodError_1.default)(error);
         statusCode = simplifiedError.statusCode;
         message = simplifiedError.message;
         errorMessages = simplifiedError.errorMessages;
     }
-    else if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        const simplifiedError = handleClientError(error);
+    else if (error instanceof client_1.Prisma.PrismaClientKnownRequestError) {
+        const simplifiedError = (0, handleClientError_1.default)(error);
         statusCode = simplifiedError.statusCode;
         message = simplifiedError.message;
         errorMessages = simplifiedError.errorMessages;
     }
-    else if (error instanceof ApiError) {
-        statusCode = error?.statusCode;
+    else if (error instanceof ApiError_1.default) {
+        statusCode = error === null || error === void 0 ? void 0 : error.statusCode;
         message = error.message;
-        errorMessages = error?.message
+        errorMessages = (error === null || error === void 0 ? void 0 : error.message)
             ? [
                 {
                     path: '',
-                    message: error?.message,
+                    message: error === null || error === void 0 ? void 0 : error.message,
                 },
             ]
             : [];
     }
     else if (error instanceof Error) {
-        message = error?.message;
-        errorMessages = error?.message
+        message = error === null || error === void 0 ? void 0 : error.message;
+        errorMessages = (error === null || error === void 0 ? void 0 : error.message)
             ? [
                 {
                     path: '',
-                    message: error?.message,
+                    message: error === null || error === void 0 ? void 0 : error.message,
                 },
             ]
             : [];
@@ -60,7 +65,7 @@ const globalErrorHandler = (error, req, res, next) => {
         success: false,
         message,
         errorMessages,
-        stack: config.env !== 'production' ? error?.stack : undefined,
+        stack: config_1.default.env !== 'production' ? error === null || error === void 0 ? void 0 : error.stack : undefined,
     });
 };
-export default globalErrorHandler;
+exports.default = globalErrorHandler;

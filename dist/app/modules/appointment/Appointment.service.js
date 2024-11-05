@@ -1,10 +1,25 @@
-import prisma from "../../../shared/prisma";
-const createAppointment = async (payload) => {
-    const result = await prisma.appointment.create({ data: payload });
-    return result;
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
 };
-const getAllFromDb = async () => {
-    const result = await prisma.appointment.findMany({
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AppointmentService = void 0;
+const prisma_1 = __importDefault(require("../../../shared/prisma"));
+const createAppointment = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.appointment.create({ data: payload });
+    return result;
+});
+const getAllFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.appointment.findMany({
         include: {
             patient: true,
             doctor: true,
@@ -12,33 +27,33 @@ const getAllFromDb = async () => {
         }
     });
     return result;
-};
-const getById = async (id) => {
-    const result = await prisma.appointment.findUnique({
+});
+const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.appointment.findUnique({
         where: {
             id
         },
     });
     return result;
-};
-const updateAppointment = async (id, payload) => {
-    const result = await prisma.appointment.update({
+});
+const updateAppointment = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.appointment.update({
         where: {
             id,
         },
         data: payload,
     });
     return result;
-};
-const deleteAppointment = async (id) => {
-    const result = await prisma.appointment.delete({
+});
+const deleteAppointment = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.appointment.delete({
         where: {
             id,
         },
     });
     return result;
-};
-export const AppointmentService = {
+});
+exports.AppointmentService = {
     createAppointment,
     getAllFromDb,
     getById,

@@ -1,54 +1,59 @@
-import express from "express";
-import { authRoutes } from "../modules/auth/Auth.routes";
-import { DoctorRoutes } from "../modules/doctor/Doctor.routes";
-import { NurseRoutes } from "../modules/nurse/Nurse.routes";
-import { ServiceRoutes } from '../modules/Service/Service.routes';
-import { AdminRoutes } from '../modules/admin/Admin.routes';
-import { AppointmentRoutes } from '../modules/appointment/Appointment.routes';
-import { NoticeRoutes } from "../modules/notice/Notice.routes";
-import { RoomRoutes } from '../modules/room/Room.routes';
-import { StaffRoutes } from "../modules/staff/Staff.routes";
-import { UserRoutes } from '../modules/user/User.routes';
-const router = express.Router();
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const Auth_routes_1 = require("../modules/auth/Auth.routes");
+const Doctor_routes_1 = require("../modules/doctor/Doctor.routes");
+const Nurse_routes_1 = require("../modules/nurse/Nurse.routes");
+const Service_routes_1 = require("../modules/Service/Service.routes");
+const Admin_routes_1 = require("../modules/admin/Admin.routes");
+const Appointment_routes_1 = require("../modules/appointment/Appointment.routes");
+const Notice_routes_1 = require("../modules/notice/Notice.routes");
+const Room_routes_1 = require("../modules/room/Room.routes");
+const Staff_routes_1 = require("../modules/staff/Staff.routes");
+const User_routes_1 = require("../modules/user/User.routes");
+const router = express_1.default.Router();
 const moduleRoutes = [
-    { path: '/auth', routes: authRoutes },
+    { path: '/auth', routes: Auth_routes_1.authRoutes },
     {
         path: '/admin',
-        routes: AdminRoutes,
+        routes: Admin_routes_1.AdminRoutes,
     },
     {
         path: '/doctor',
-        routes: DoctorRoutes,
+        routes: Doctor_routes_1.DoctorRoutes,
     },
     {
         path: '/nurse',
-        routes: NurseRoutes,
+        routes: Nurse_routes_1.NurseRoutes,
     },
     {
         path: '/room',
-        routes: RoomRoutes,
+        routes: Room_routes_1.RoomRoutes,
     },
     {
         path: '/notice',
-        routes: NoticeRoutes,
+        routes: Notice_routes_1.NoticeRoutes,
     },
     {
         path: '/staff',
-        routes: StaffRoutes,
+        routes: Staff_routes_1.StaffRoutes,
     },
     {
         path: '/user',
-        routes: UserRoutes,
+        routes: User_routes_1.UserRoutes,
     },
     {
         path: '/service',
-        routes: ServiceRoutes,
+        routes: Service_routes_1.ServiceRoutes,
     },
     {
         path: '/appointment',
-        routes: AppointmentRoutes,
+        routes: Appointment_routes_1.AppointmentRoutes,
     },
 ];
 // ! comment out the below line 
 moduleRoutes.forEach(route => router.use(route.path, route.routes));
-export default router;
+exports.default = router;

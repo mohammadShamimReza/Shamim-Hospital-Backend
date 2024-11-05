@@ -1,14 +1,29 @@
-import prisma from '../../../shared/prisma';
-const createNurse = async (payload) => {
-    const result = await prisma.nurse.create({ data: payload });
-    return result;
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
 };
-const getAllFromDb = async () => {
-    const result = await prisma.nurse.findMany({});
-    return result;
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const getById = async (id) => {
-    const result = await prisma.nurse.findUnique({
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NurseService = void 0;
+const prisma_1 = __importDefault(require("../../../shared/prisma"));
+const createNurse = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.nurse.create({ data: payload });
+    return result;
+});
+const getAllFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.nurse.findMany({});
+    return result;
+});
+const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.nurse.findUnique({
         where: {
             id,
         },
@@ -17,25 +32,25 @@ const getById = async (id) => {
         }
     });
     return result;
-};
-const updateNurse = async (id, payload) => {
-    const result = await prisma.nurse.update({
+});
+const updateNurse = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.nurse.update({
         where: {
             id,
         },
         data: payload,
     });
     return result;
-};
-const deleteNurse = async (id) => {
-    const result = await prisma.nurse.delete({
+});
+const deleteNurse = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.nurse.delete({
         where: {
             id,
         },
     });
     return result;
-};
-export const NurseService = {
+});
+exports.NurseService = {
     createNurse,
     getAllFromDb,
     getById,

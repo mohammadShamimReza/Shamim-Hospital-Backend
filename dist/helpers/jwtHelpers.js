@@ -1,21 +1,27 @@
-import jwt from 'jsonwebtoken';
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.jwtHelpers = void 0;
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const createToken = (payload, secret, expireTime) => {
-    return jwt.sign(payload, secret, {
+    return jsonwebtoken_1.default.sign(payload, secret, {
         expiresIn: expireTime,
     });
 };
 const createResetToken = (
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 payload, secret, expireTime) => {
-    return jwt.sign(payload, secret, {
+    return jsonwebtoken_1.default.sign(payload, secret, {
         algorithm: 'HS256',
         expiresIn: expireTime,
     });
 };
 const verifyToken = (token, secret) => {
-    return jwt.verify(token, secret);
+    return jsonwebtoken_1.default.verify(token, secret);
 };
-export const jwtHelpers = {
+exports.jwtHelpers = {
     createToken,
     verifyToken,
     createResetToken,

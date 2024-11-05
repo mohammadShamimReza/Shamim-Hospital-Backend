@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class ApiError extends Error {
     constructor(statusCode, message, stack = '') {
         super(message);
@@ -10,4 +12,4 @@ class ApiError extends Error {
         }
     }
 }
-export default ApiError;
+exports.default = ApiError;

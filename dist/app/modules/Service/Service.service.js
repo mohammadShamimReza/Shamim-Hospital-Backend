@@ -1,32 +1,47 @@
-import prisma from '../../../shared/prisma';
-const createService = async (payload) => {
-    const result = await prisma.service.create({ data: payload });
-    return result;
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
 };
-const getAllFromDb = async () => {
-    const result = await prisma.service.findMany({});
-    return result;
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const getById = async (id) => {
-    const result = await prisma.service.findUnique({
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ServiceService = void 0;
+const prisma_1 = __importDefault(require("../../../shared/prisma"));
+const createService = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.service.create({ data: payload });
+    return result;
+});
+const getAllFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.service.findMany({});
+    return result;
+});
+const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.service.findUnique({
         where: { id },
     });
     return result;
-};
-const updateService = async (id, payload) => {
-    const result = await prisma.service.update({
+});
+const updateService = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.service.update({
         where: { id },
         data: payload,
     });
     return result;
-};
-const deleteService = async (id) => {
-    const result = await prisma.service.delete({
+});
+const deleteService = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.service.delete({
         where: { id },
     });
     return result;
-};
-export const ServiceService = {
+});
+exports.ServiceService = {
     createService,
     getAllFromDb,
     getById,

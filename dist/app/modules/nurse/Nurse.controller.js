@@ -1,58 +1,73 @@
-import catchAsync from '../../../shared/catchAsync';
-import sendResponse from '../../../shared/sendResponse';
-import { NurseService } from './Nurse.service';
-import { StatusCodes } from 'http-status-codes';
-const createNurse = catchAsync(async (req, res) => {
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NurseController = void 0;
+const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
+const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
+const Nurse_service_1 = require("./Nurse.service");
+const http_status_codes_1 = require("http-status-codes");
+const createNurse = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
-    const result = await NurseService.createNurse(payload);
-    sendResponse(res, {
-        statusCode: StatusCodes.OK,
+    const result = yield Nurse_service_1.NurseService.createNurse(payload);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
         message: 'Nurse created successfully',
         data: result,
     });
-});
-const getAllFromDB = catchAsync(async (req, res) => {
-    const result = await NurseService.getAllFromDb();
-    sendResponse(res, {
-        statusCode: StatusCodes.OK,
+}));
+const getAllFromDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield Nurse_service_1.NurseService.getAllFromDb();
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
         message: 'Nurses fetched successfully',
         data: result,
     });
-});
-const getById = catchAsync(async (req, res) => {
+}));
+const getById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const result = await NurseService.getById(Number(id));
-    sendResponse(res, {
-        statusCode: StatusCodes.OK,
+    const result = yield Nurse_service_1.NurseService.getById(Number(id));
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
         message: 'Nurse fetched successfully',
         data: result,
     });
-});
-const updateNurse = catchAsync(async (req, res) => {
+}));
+const updateNurse = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     const payload = req.body;
-    const result = await NurseService.updateNurse(Number(id), payload);
-    sendResponse(res, {
-        statusCode: StatusCodes.OK,
+    const result = yield Nurse_service_1.NurseService.updateNurse(Number(id), payload);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
         message: 'Nurse updated successfully',
         data: result,
     });
-});
-const deleteNurse = catchAsync(async (req, res) => {
+}));
+const deleteNurse = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
-    const result = await NurseService.deleteNurse(Number(id));
-    sendResponse(res, {
-        statusCode: StatusCodes.OK,
+    const result = yield Nurse_service_1.NurseService.deleteNurse(Number(id));
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
         message: 'Nurse deleted successfully',
         data: result,
     });
-});
-export const NurseController = {
+}));
+exports.NurseController = {
     createNurse,
     getAllFromDB,
     getById,

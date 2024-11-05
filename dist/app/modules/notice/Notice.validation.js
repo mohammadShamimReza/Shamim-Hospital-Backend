@@ -1,17 +1,20 @@
-import { z } from 'zod';
-const createNotice = z.object({
-    body: z.object({
-        title: z.string({ required_error: 'Title is required' }),
-        content: z.string({ required_error: 'Content is required' }),
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NoticeValidation = void 0;
+const zod_1 = require("zod");
+const createNotice = zod_1.z.object({
+    body: zod_1.z.object({
+        title: zod_1.z.string({ required_error: 'Title is required' }),
+        content: zod_1.z.string({ required_error: 'Content is required' }),
     }),
 });
-const updateNotice = z.object({
-    body: z.object({
-        title: z.string().optional(),
-        content: z.string().optional(),
+const updateNotice = zod_1.z.object({
+    body: zod_1.z.object({
+        title: zod_1.z.string().optional(),
+        content: zod_1.z.string().optional(),
     }),
 });
-export const NoticeValidation = {
+exports.NoticeValidation = {
     createNotice,
     updateNotice,
 };

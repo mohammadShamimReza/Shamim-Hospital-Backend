@@ -1,58 +1,73 @@
-import catchAsync from '../../../shared/catchAsync';
-import sendResponse from '../../../shared/sendResponse';
-import { RoomService } from './Room.service';
-import { StatusCodes } from 'http-status-codes';
-const createRoom = catchAsync(async (req, res) => {
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.RoomController = void 0;
+const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
+const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
+const Room_service_1 = require("./Room.service");
+const http_status_codes_1 = require("http-status-codes");
+const createRoom = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
-    const result = await RoomService.createRoom(payload);
-    sendResponse(res, {
-        statusCode: StatusCodes.OK,
+    const result = yield Room_service_1.RoomService.createRoom(payload);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
         message: 'Room created successfully',
         data: result,
     });
-});
-const getAllFromDB = catchAsync(async (req, res) => {
-    const result = await RoomService.getAllFromDb();
-    sendResponse(res, {
-        statusCode: StatusCodes.OK,
+}));
+const getAllFromDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield Room_service_1.RoomService.getAllFromDb();
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
         message: 'Rooms fetched successfully',
         data: result,
     });
-});
-const getById = catchAsync(async (req, res) => {
+}));
+const getById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const result = await RoomService.getById(Number(id));
-    sendResponse(res, {
-        statusCode: StatusCodes.OK,
+    const result = yield Room_service_1.RoomService.getById(Number(id));
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
         message: 'Room fetched successfully',
         data: result,
     });
-});
-const updateRoom = catchAsync(async (req, res) => {
+}));
+const updateRoom = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     const payload = req.body;
-    const result = await RoomService.updateRoom(Number(id), payload);
-    sendResponse(res, {
-        statusCode: StatusCodes.OK,
+    const result = yield Room_service_1.RoomService.updateRoom(Number(id), payload);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
         message: 'Room updated successfully',
         data: result,
     });
-});
-const deleteRoom = catchAsync(async (req, res) => {
+}));
+const deleteRoom = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
-    const result = await RoomService.deleteRoom(Number(id));
-    sendResponse(res, {
-        statusCode: StatusCodes.OK,
+    const result = yield Room_service_1.RoomService.deleteRoom(Number(id));
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
         message: 'Room deleted successfully',
         data: result,
     });
-});
-export const RoomController = {
+}));
+exports.RoomController = {
     createRoom,
     getAllFromDB,
     getById,

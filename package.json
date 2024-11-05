@@ -3,7 +3,6 @@
   "name": "shamimhospital-backend",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "postinstall": "prisma generate",
     "dev": "ts-node-dev --import tsx --respawn --transpile-only src/server.ts",

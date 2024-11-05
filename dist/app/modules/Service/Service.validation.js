@@ -1,37 +1,40 @@
-import { z } from 'zod';
-const createService = z.object({
-    body: z.object({
-        serviceName: z.string({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ServiceValidation = void 0;
+const zod_1 = require("zod");
+const createService = zod_1.z.object({
+    body: zod_1.z.object({
+        serviceName: zod_1.z.string({
             required_error: 'Service name is required',
         }),
-        description: z.string({
+        description: zod_1.z.string({
             required_error: 'Description is required',
         }),
-        price: z.number({
+        price: zod_1.z.number({
             required_error: 'Price is required',
         }),
-        serviceType: z
+        serviceType: zod_1.z
             .string({
             required_error: 'Service type is required',
         })
             .refine(val => ['Consultation', 'Surgery', 'Therapy'].includes(val), {
             message: 'Service type must be one of "Consultation", "Surgery", or "Therapy"',
         }),
-        bodyPart: z.string({
+        bodyPart: zod_1.z.string({
             required_error: 'Body part is required',
         }),
     }),
 });
-const updateService = z.object({
-    body: z.object({
-        serviceName: z.string().optional(),
-        description: z.string().optional(),
-        price: z.number().optional(),
-        serviceType: z.string().optional(),
-        bodyPart: z.string().optional(),
+const updateService = zod_1.z.object({
+    body: zod_1.z.object({
+        serviceName: zod_1.z.string().optional(),
+        description: zod_1.z.string().optional(),
+        price: zod_1.z.number().optional(),
+        serviceType: zod_1.z.string().optional(),
+        bodyPart: zod_1.z.string().optional(),
     }),
 });
-export const ServiceValidation = {
+exports.ServiceValidation = {
     createService,
     updateService,
 };

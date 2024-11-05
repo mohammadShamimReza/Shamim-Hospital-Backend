@@ -1,9 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const handleClientError = (error) => {
+    var _a, _b;
     let errors = [];
     let message = '';
     const statusCode = 400;
     if (error.code === 'P2025') {
-        message = error.meta?.cause || 'Record not found';
+        message = ((_a = error.meta) === null || _a === void 0 ? void 0 : _a.cause) || 'Record not found';
         errors = [
             {
                 path: '',
@@ -23,7 +26,7 @@ const handleClientError = (error) => {
         }
     }
     else if (error.code === 'P2002') {
-        message = `${error.meta?.target} is already used`;
+        message = `${(_b = error.meta) === null || _b === void 0 ? void 0 : _b.target} is already used`;
         errors = [
             {
                 path: '',
@@ -38,4 +41,4 @@ const handleClientError = (error) => {
         errorMessages: errors,
     };
 };
-export default handleClientError;
+exports.default = handleClientError;

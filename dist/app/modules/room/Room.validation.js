@@ -1,17 +1,20 @@
-import { z } from 'zod';
-const createRoom = z.object({
-    body: z.object({
-        roomNumber: z.string({ required_error: 'Room number is required' }),
-        needNurseAndStaff: z.number().int().optional(),
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.RoomValidation = void 0;
+const zod_1 = require("zod");
+const createRoom = zod_1.z.object({
+    body: zod_1.z.object({
+        roomNumber: zod_1.z.string({ required_error: 'Room number is required' }),
+        needNurseAndStaff: zod_1.z.number().int().optional(),
     }),
 });
-const updateRoom = z.object({
-    body: z.object({
-        roomNumber: z.string().optional(),
-        needNurseAndStaff: z.number().int().optional(),
+const updateRoom = zod_1.z.object({
+    body: zod_1.z.object({
+        roomNumber: zod_1.z.string().optional(),
+        needNurseAndStaff: zod_1.z.number().int().optional(),
     }),
 });
-export const RoomValidation = {
+exports.RoomValidation = {
     createRoom,
     updateRoom,
 };

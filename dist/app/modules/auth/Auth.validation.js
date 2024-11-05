@@ -1,46 +1,49 @@
-import { z } from 'zod';
-const create = z.object({
-    body: z.object({
-        name: z.string({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AuthValidation = void 0;
+const zod_1 = require("zod");
+const create = zod_1.z.object({
+    body: zod_1.z.object({
+        name: zod_1.z.string({
             required_error: 'Name is required',
         }),
-        email: z
+        email: zod_1.z
             .string({
             required_error: 'Email is required',
         })
             .email('Invalid email format'),
-        password: z
+        password: zod_1.z
             .string({
             required_error: 'Password is required',
         })
             .min(8, 'Password must be at least 8 characters'),
-        address: z.string({ required_error: 'address is required' }), // Address is optional in the model
-        phone: z.number({ required_error: 'Phone number is required' }), // Phone number is optional in the model
-        role: z.string({ required_error: 'role is required' }),
+        address: zod_1.z.string({ required_error: 'address is required' }), // Address is optional in the model
+        phone: zod_1.z.number({ required_error: 'Phone number is required' }), // Phone number is optional in the model
+        role: zod_1.z.string({ required_error: 'role is required' }),
     }),
 });
-const login = z.object({
-    body: z.object({
-        email: z.string({
+const login = zod_1.z.object({
+    body: zod_1.z.object({
+        email: zod_1.z.string({
             required_error: 'Email is required',
         }),
-        password: z.string({
+        password: zod_1.z.string({
             required_error: 'password is required',
         }),
-        role: z.string({ required_error: 'role is required' }), // Role is optional in the model
+        role: zod_1.z.string({ required_error: 'role is required' }), // Role is optional in the model
     }),
 });
-const changePasswordZodSchema = z.object({
-    body: z.object({
-        oldPassword: z.string({
+const changePasswordZodSchema = zod_1.z.object({
+    body: zod_1.z.object({
+        oldPassword: zod_1.z.string({
             required_error: 'Old password  is required',
         }),
-        newPassword: z.string({
+        newPassword: zod_1.z.string({
             required_error: 'New password  is required',
         }),
     }),
 });
-export const AuthValidation = {
+exports.AuthValidation = {
     create,
     login,
     changePasswordZodSchema,

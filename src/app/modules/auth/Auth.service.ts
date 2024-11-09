@@ -204,12 +204,52 @@ const changePassword = async (
   return result;
 };
 
-const forgotPass = async (payload: { email: string }) => {
-  const isUserExist = await prisma.user.findFirst({
-    where: {
-      email: payload.email,
-    },
-  });
+const forgotPass = async ({ email, role }: {email: string, role: string}) => {
+console.log(email, role)
+  let isUserExist;
+  if (role === 'admin') {
+    console.log('here');
+    isUserExist = await prisma.admin.findFirst({
+      where: {
+        email,
+      },
+    });
+  }
+  if (role === 'patient') {
+    isUserExist = await prisma.user.findFirst({
+      where: {
+        email,
+      },
+    });
+  }
+  if (role === 'doctor') {
+    isUserExist = await prisma.doctor.findFirst({
+      where: {
+        email,
+      },
+    });
+  }
+  if (role === 'nurse') {
+    isUserExist = await prisma.nurse.findFirst({
+      where: {
+        email,
+      },
+    });
+  }
+  if (role === 'staff') {
+    isUserExist = await prisma.staff.findFirst({
+      where: {
+        email,
+      },
+    });
+  }
+
+  console.log(
+    isUserExist,
+    'this is user'
+  )
+
+
   if (!isUserExist) {
     throw new ApiError(500, 'User does not exist!');
   }
@@ -221,7 +261,7 @@ const forgotPass = async (payload: { email: string }) => {
   );
 
   const resetLink: string = config.resetlink + `token=${passResetToken}`;
-
+console.log(resetLink)
   await sendEmail(
     isUserExist.email,
     `

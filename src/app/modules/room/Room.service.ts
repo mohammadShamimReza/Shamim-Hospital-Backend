@@ -8,7 +8,10 @@ const createRoom = async (payload: Room): Promise<Room> => {
 
 const getAllFromDb = async (): Promise<Room[]> => {
   const result = await prisma.room.findMany({
- 
+    include: {
+      nurses: true,
+      staff: true
+    }
   });
   return result;
 };

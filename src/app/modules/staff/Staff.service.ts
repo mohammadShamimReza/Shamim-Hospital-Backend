@@ -16,6 +16,9 @@ const getById = async (id: number): Promise<Staff | null> => {
     where: {
       id,
     },
+    include: {
+      room: true,
+    }
   });
   return result;
 };

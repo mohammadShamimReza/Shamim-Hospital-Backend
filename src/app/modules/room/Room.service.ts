@@ -26,11 +26,29 @@ const getById = async (id: number): Promise<Room | null> => {
 
 const updateRoom = async (
   id: number,
-  payload: Partial<Room>,
+  payload: Partial<Room> & {
+    addNurses?: number[]; // IDs of nurses to add to the room
+    removeNurses?: number[]; // IDs of nurses to remove from the room
+    addStaff?: number[]; // IDs of staff to add to the room
+    removeStaff?: number[]; // IDs of staff to remove from the room
+  },
 ): Promise<Room> => {
+    const { addNurses, removeNurses, addStaff, removeStaff, ...roomData } =
+      payload;
+
   const result = await prisma.room.update({
     where: { id },
-    data: payload,
+    data: {
+      ...roomData,
+      nurses: {
+        connect: addNurses?.map(nurseId => ({ id: nurseId })) || [],
+        disconnect: removeNurses?.map(nurseId => ({ id: nurseId })) || [],
+      },
+      staff: {
+        connect: addStaff?.map(staffId => ({ id: staffId })) || [],
+        disconnect: removeStaff?.map(staffId => ({ id: staffId })) || [],
+      },
+    },
   });
   return result;
 };

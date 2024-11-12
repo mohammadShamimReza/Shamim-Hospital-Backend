@@ -3,13 +3,13 @@ import config from '../../../config';
 
 export async function sendEmail(to: string, html: string) {
   const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: 'smtp.ethereal.email',
     port: 587,
     secure: false,
     auth: {
       user: config.email,
-      pass: config.appPass
-    }
+      pass: config.appPass,
+    },
   });
 
   await transporter.sendMail({

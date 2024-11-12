@@ -260,7 +260,7 @@ console.log(email, role)
     '50m',
   );
 
-  const resetLink: string = config.resetlink + `token=${passResetToken}`;
+  const resetLink: string = config.resetlink + `?token=${passResetToken}`;
 console.log(resetLink)
   await sendEmail(
     isUserExist.email,
@@ -337,36 +337,127 @@ const me = async (userData: JwtPayload) => {
 };
 
 const resetPassword = async (
-  payload: { id: number; newPassword: string },
-  // token: string,
+  payload: {
+    id: number;  newPassword: string, role: string,
+    token: string,
+  }
 ) => {
-  const { newPassword } = payload;
-  const user = await prisma.user.findUnique({
-    where: {
-      id: payload?.id,
-    },
-  });
+  const {id, newPassword, token, role  } = payload;
+
+  let user;
+
+   if (role === 'admin') {
+     user = await prisma.admin.findUnique({
+       where: {
+         role,
+         id,
+       },
+     });
+   }
+   if (role === 'patient') {
+     user = await prisma.user.findUnique({
+       where: {
+         role,
+         id,
+       },
+     });
+   }
+   if (role === 'doctor') {
+     user = await prisma.doctor.findUnique({
+       where: {
+         role,
+         id,
+       },
+     });
+   }
+   if (role === 'nurse') {
+     user = await prisma.nurse.findUnique({
+       where: {
+         role,
+         id,
+       },
+     });
+   }
+   if (role === 'staff') {
+     user = await prisma.staff.findUnique({
+       where: {
+         role,
+         id,
+       },
+     });
+   }
+
+ 
 
   if (!user) {
     throw new ApiError(500, 'User not found!');
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const isVarified = await jwtHelpers.verifyToken(
-  //   token,
-  //   config.jwt.secret as string,
-  // );
+  const isVarified = await jwtHelpers.verifyToken(
+    token,
+    config.jwt.secret as string,
+  );
+
+  if (id !== isVarified.id || role !== isVarified.role) { 
+    throw new ApiError(401, 'Token is invalid or expired!');
+  }
 
   // const password = await bcrypt.hash(newPassword, Number(config.bycrypt_salt_rounds));
+let result
 
-  const result = await prisma.user.update({
-    where: {
-      id: user?.id,
-    },
-    data: {
-      password: newPassword,
-    },
-  });
+   if (user?.role === 'admin') {
+     result = await prisma.admin.update({
+       where: {
+         id: user?.id,
+       },
+       data: {
+         password: newPassword,
+       },
+     });
+   }
+   if (user?.role === 'patient') {
+     result = await prisma.user.update({
+       where: {
+         id: user?.id,
+       },
+       data: {
+         password: newPassword,
+       },
+     });
+   }
+   if (user?.role === 'doctor') {
+     result = await prisma.doctor.update({
+       where: {
+         id: user?.id,
+       },
+       data: {
+         password: newPassword,
+       },
+     });
+   }
+   if (user?.role === 'nurse') {
+     result = await prisma.nurse.update({
+       where: {
+         id: user?.id,
+       },
+       data: {
+         password: newPassword,
+       },
+     });
+   }
+   if (user?.role === 'staff') {
+     result = await prisma.staff.update({
+       where: {
+         id: user?.id,
+       },
+       data: {
+         password: newPassword,
+       },
+     });
+   }
+
+  console.log(result, 'this is result'  );
+  
 
   return result;
 };

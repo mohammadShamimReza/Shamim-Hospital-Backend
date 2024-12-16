@@ -1,16 +1,19 @@
-import express from "express";
-import { authRoutes } from "../modules/auth/Auth.routes";
-import { DoctorRoutes } from "../modules/doctor/Doctor.routes";
-import { NurseRoutes } from "../modules/nurse/Nurse.routes";
+import express from 'express';
+import { authRoutes } from '../modules/auth/Auth.routes';
+import { DoctorRoutes } from '../modules/doctor/Doctor.routes';
+import { NurseRoutes } from '../modules/nurse/Nurse.routes';
 
-import { ServiceRoutes } from '../modules/Service/Service.routes';
 import { AdminRoutes } from '../modules/admin/Admin.routes';
 import { AppointmentRoutes } from '../modules/appointment/Appointment.routes';
-import { NoticeRoutes } from "../modules/notice/Notice.routes";
+import { DiagnosticRoutes } from '../modules/diagonistic/Diagonistic.routes';
+import { InventoryRoutes } from '../modules/inventory/Inventory.routes';
+import { LaboratoryRoutes } from '../modules/Laboratory/Laboratory.routes';
+import { NoticeRoutes } from '../modules/notice/Notice.routes';
+import { PharmacyRoutes } from '../modules/pharmacy/Pharmacy.routes';
 import { RoomRoutes } from '../modules/room/Room.routes';
-import { StaffRoutes } from "../modules/staff/Staff.routes";
+import { ServiceRoutes } from '../modules/Service/Service.routes';
+import { StaffRoutes } from '../modules/staff/Staff.routes';
 import { UserRoutes } from '../modules/user/User.routes';
-
 
 const router = express.Router();
 
@@ -53,9 +56,26 @@ const moduleRoutes = [
     path: '/appointment',
     routes: AppointmentRoutes,
   },
+
+  {
+    path: '/pharmacy',
+    routes: PharmacyRoutes,
+  },
+  {
+    path: '/diagonostic',
+    routes: DiagnosticRoutes,
+  },
+  {
+    path: '/inventory',
+    routes: InventoryRoutes,
+  },
+  {
+    path: '/laboratory',
+    routes: LaboratoryRoutes,
+  },
 ];
 
-// ! comment out the below line 
+// ! comment out the below line
 
 moduleRoutes.forEach(route => router.use(route.path, route.routes));
 export default router;

@@ -18,9 +18,7 @@ const createInventory = z.object({
     category: z.string({
       required_error: 'category is required',
     }), // Could use z.enum if predefined categories are necessary
-    purchaseDate: z
-      .string({ required_error: 'purchaseDate is required' })
-      .datetime(),
+    purchaseDate: z.string({ required_error: 'purchaseDate is required' }),
     status: z
       .enum(['Available', 'In Use', 'Damaged'], {
         required_error: 'status is required',
@@ -35,7 +33,7 @@ const updateInventory = z.object({
     quantity: z.number().min(1).optional(),
     price: z.number().min(1).optional(),
     category: z.string().optional(),
-    purchaseDate: z.string().datetime().optional(),
+    purchaseDate: z.string().optional(),
     status: z.enum(['Available', 'In Use', 'Damaged']).optional(),
   }),
 });

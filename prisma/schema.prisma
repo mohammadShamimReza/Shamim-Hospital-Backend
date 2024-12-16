@@ -53,7 +53,7 @@ model Inventory {
   quantity     Int
   price        Int
   category     String // e.g., Medicine, Equipment, Consumables
-  purchaseDate DateTime
+  purchaseDate String
   status       String   @default("Available") // Available, In Use, Damaged
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -74,8 +74,8 @@ model Pharmacy {
   name          String
   stockQuantity Int
   unitPrice     Float
-  image         String
-  expiryDate    DateTime
+  image         String?
+  expiryDate    String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -87,27 +87,50 @@ model Laboratory {
   id            Int      @id @default(autoincrement())
   testName      String
   price         Int
-  appointmentId Int?
-  testDate      DateTime @default(now())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+    LabAppointment LabAppointment[]
+}
+
+model LabAppointment {
+  id            Int      @id @default(autoincrement())
+  laboratoryId  Int
+  appointmentId Int
+  testDate      String
   result        String?
   status        String   @default("Pending") // Pending, Completed, InProgress
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  appointment Appointment? @relation(fields: [appointmentId], references: [id])
+  laboratory    Laboratory @relation(fields: [laboratoryId], references: [id])
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
 }
 
 model Diagnostic {
   id             Int      @id @default(autoincrement())
   diagnosticName String
   price          Int
-  appointmentId  Int?
-  result         String?
-  status         String   @default("Pending") // Pending, Completed
+
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  appointment Appointment? @relation(fields: [appointmentId], references: [id])
+  DiagnosticAppointment DiagnosticAppointment[]
+
+}
+
+model DiagnosticAppointment {
+  id              Int       @id @default(autoincrement())
+  diagnosticId    Int
+  appointmentId   Int
+  price           Int       // Appointment-specific price for the diagnostic
+  result          String?   // Appointment-specific result
+  status          String     @default("Pending") // e.g., Pending, Completed
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  diagnostic      Diagnostic  @relation(fields: [diagnosticId], references: [id])
+  appointment     Appointment @relation(fields: [appointmentId], references: [id])
 }
 
 model Billing {
@@ -216,10 +239,10 @@ model Appointment {
   prescription    String?
   serviceId       Int
   Service         Service           @relation(fields: [serviceId], references: [id])
-  Laboratory      Laboratory[]
-  Diagnostic      Diagnostic[]
   Billing         Billing[]
   Pharmacy        Pharmacy[]
+  LabAppointment  LabAppointment[]
+  DiagnosticAppointment DiagnosticAppointment[]
 
   @@map("appointment")
 }

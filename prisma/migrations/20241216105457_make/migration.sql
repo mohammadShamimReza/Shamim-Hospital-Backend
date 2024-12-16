@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Laboratory" ALTER COLUMN "testDate" DROP DEFAULT,
+ALTER COLUMN "testDate" SET DATA TYPE TEXT;

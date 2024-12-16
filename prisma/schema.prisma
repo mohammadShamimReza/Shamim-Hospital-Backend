@@ -23,6 +23,8 @@ model User {
   appointments  Appointment[]
 
   @@map("user")
+
+  Billing Billing[]
 }
 
 // Doctor Model
@@ -44,6 +46,95 @@ model Doctor {
 
   @@map("doctor")
 }
+
+model Inventory {
+  id           Int        @id @default(autoincrement())
+  itemName     String
+  quantity     Int
+  category     String     // e.g., Medicine, Equipment, Consumables
+  purchaseDate DateTime
+  status       String     @default("Available") // Available, In Use, Damaged
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+
+model Asset {
+  id           Int        @id @default(autoincrement())
+  name         String
+  serialNumber String
+  purchaseDate DateTime
+  status       String     @default("Operational") // Operational, Under Maintenance, Out of Service
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model Pharmacy {
+  id            Int        @id @default(autoincrement())
+  name          String
+  stockQuantity Int
+  unitPrice     Float
+  expiryDate    DateTime
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  Appointment Appointment[]
+}
+
+model Laboratory {
+  id           Int        @id @default(autoincrement())
+  testName     String
+price Int
+    appointmentId Int?
+  testDate     DateTime   @default(now())
+  result       String?
+  status       String     @default("Pending") // Pending, Completed, InProgress
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+   appointment  Appointment? @relation(fields: [appointmentId], references: [id])
+}
+
+model Diagnostic {
+  id           Int        @id @default(autoincrement())
+  diagnosticName String
+price Int
+  appointmentId Int?
+  result       String?
+  status       String     @default("Pending") // Pending, Completed
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  appointment  Appointment? @relation(fields: [appointmentId], references: [id])
+}
+
+model Billing {
+  id           Int        @id @default(autoincrement())
+  userId    Int
+  totalAmount  Float
+  paidAmount   Float
+  dueAmount    Float
+  appointmentId Int?
+  paymentStatus String    @default("Unpaid") // Paid, Unpaid, Partially Paid
+  invoiceDate  DateTime   @default(now())
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+appointment  Appointment? @relation(fields: [appointmentId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
+}
+
+model Finance {
+  id           Int        @id @default(autoincrement())
+  transactionType String  // Revenue, Expense
+  amount       Float
+  description  String
+  department String
+  transactionDate DateTime @default(now())
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
 
 // Nurse Model
 model Nurse {
@@ -105,12 +196,20 @@ model Service {
   @@map("service")
 }
 
+enum appointmentStatus {
+  requested
+  scheduled
+  completed
+  cancelled
+}
+
 // Appointment Model
 model Appointment {
   id              Int      @id @default(autoincrement())
   doctorId        Int
   patientId       Int
   appointmentDate DateTime
+  status  appointmentStatus
   doctor          Doctor   @relation(fields: [doctorId], references: [id])
   patient         User     @relation(fields: [patientId], references: [id])
   prescription    String?
@@ -118,6 +217,10 @@ model Appointment {
   Service         Service  @relation(fields: [serviceId], references: [id])
 
   @@map("appointment")
+  Laboratory Laboratory[]
+  Diagnostic Diagnostic[]
+  Billing Billing[]
+  Pharmacy Pharmacy[]
 }
 
 model Room {
@@ -155,6 +258,7 @@ model Notice {
   id        Int      @id @default(autoincrement())
   title     String
   content   String
+  expiryDate DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

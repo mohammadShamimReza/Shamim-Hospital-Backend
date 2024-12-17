@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "notice" ALTER COLUMN "expiryDate" DROP DEFAULT,
+ALTER COLUMN "expiryDate" SET DATA TYPE TEXT;

@@ -282,7 +282,7 @@ model Notice {
   id         Int      @id @default(autoincrement())
   title      String
   content    String
-  expiryDate DateTime @default(now())
+  expiryDate String 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 

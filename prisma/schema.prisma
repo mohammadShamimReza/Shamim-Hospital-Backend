@@ -232,6 +232,7 @@ model Appointment {
   id              Int               @id @default(autoincrement())
   doctorId        Int
   patientId       Int
+  price           Int   @default(500)
   appointmentDate DateTime
   status          appointmentStatus @default(requested)
   doctor          Doctor            @relation(fields: [doctorId], references: [id])

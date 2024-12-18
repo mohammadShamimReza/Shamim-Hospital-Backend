@@ -38,10 +38,29 @@ const getById = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+
+const getAllAppointmentByUserId = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const result = await AppointmentService.getAllAppointmentByUserId(
+      Number(id),
+    );
+    sendResponse(res, {
+      statusCode: StatusCodes.OK,
+      success: true,
+      message: 'Appointment fetched successfully',
+      data: result,
+    });
+  },
+);
+
 const updateAppointment = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const payload = req.body;
-  const result = await AppointmentService.updateAppointment(Number(id), payload);
+  const result = await AppointmentService.updateAppointment(
+    Number(id),
+    payload,
+  );
 
   sendResponse<Appointment>(res, {
     statusCode: StatusCodes.OK,
@@ -68,4 +87,5 @@ export const AppointmentController = {
   getById,
   updateAppointment,
   deleteAppointment,
+  getAllAppointmentByUserId,
 };

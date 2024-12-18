@@ -26,6 +26,37 @@ const getById = async (id: number): Promise<Appointment | null> => {
   return result;
 };
 
+const getAllAppointmentByUserId = async (userId: number) => {
+  const result = await prisma.appointment.findMany({
+    where: {
+      patientId: userId,
+    },
+    select: {
+      doctor: true,
+      patient: true,
+      appointmentDate: true,
+      prescription: true,
+      LabAppointment: {
+        select: {
+          laboratory: true,
+        },
+      },
+      DiagnosticAppointment: {
+        select: {
+          diagnostic: true,
+        },
+      },
+      Pharmacy: {
+        select: {
+          pharmacy: true,
+        },
+      },
+      status: true,
+    },
+  });
+  return result;
+};
+
 const updateAppointment = async (
   id: number,
   payload: Partial<Appointment>,
@@ -54,4 +85,5 @@ export const AppointmentService = {
   getById,
   updateAppointment,
   deleteAppointment,
+  getAllAppointmentByUserId,
 };

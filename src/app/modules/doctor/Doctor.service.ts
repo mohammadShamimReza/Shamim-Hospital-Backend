@@ -29,9 +29,37 @@ const getById = async (id: number): Promise<Doctor | null> => {
           patient: true,
           Service: true,
           status: true,
-          LabAppointment: true,
-          DiagnosticAppointment: true,
-          Pharmacy: true,
+          price: true,
+          LabAppointment: {
+            select: {
+              laboratory: {
+                select: {
+                  id: true,
+                  testName: true,
+                },
+              },
+            },
+          },
+          DiagnosticAppointment: {
+            select: {
+              diagnostic: {
+                select: {
+                  id: true,
+                  diagnosticName: true,
+                },
+              },
+            },
+          },
+          Pharmacy: {
+            select: {
+              pharmacy: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
+          },
           Billing: true,
         },
       },

@@ -8,6 +8,9 @@ import { AppointmentValidation } from './Appointment.validation';
 const router = express.Router();
 
 router.get('/:id', AppointmentController.getById);
+router.get('/user/:id', AppointmentController.getAllAppointmentByUserId);
+
+
 
 router.get('/', AppointmentController.getAllFromDB);
 router.post(

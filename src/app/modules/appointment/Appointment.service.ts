@@ -34,6 +34,12 @@ const getAllAppointmentByUserId = async (userId: number) => {
     select: {
       doctor: true,
       patient: true,
+      id: true,
+      Service: {
+        select: {
+          serviceName: true,
+        },
+      },
       appointmentDate: true,
       prescription: true,
       LabAppointment: {

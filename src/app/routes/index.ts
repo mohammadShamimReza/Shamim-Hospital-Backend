@@ -11,6 +11,7 @@ import { InventoryRoutes } from '../modules/inventory/Inventory.routes';
 import { LabAppointmentRoutes } from '../modules/labAppointment/LabAppointment.routes';
 import { LaboratoryRoutes } from '../modules/Laboratory/Laboratory.routes';
 import { NoticeRoutes } from '../modules/notice/Notice.routes';
+import { PaymentRoutes } from '../modules/payment/payment.routes';
 import { PharmacyRoutes } from '../modules/pharmacy/Pharmacy.routes';
 import { PharmacyAppointmentRoutes } from '../modules/pharmacyAppointment/PharmacyAppointment.routes';
 import { RoomRoutes } from '../modules/room/Room.routes';
@@ -87,6 +88,10 @@ const moduleRoutes = [
   {
     path: '/laboratoryAppointment',
     routes: LabAppointmentRoutes,
+  },
+  {
+    path: '/payment',
+    routes: PaymentRoutes,
   },
 ];
 

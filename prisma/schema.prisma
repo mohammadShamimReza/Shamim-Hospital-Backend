@@ -20,6 +20,7 @@ model User {
   address       String?
   profile_image String?
   role          String
+  payment Boolean @default(false)
   appointments  Appointment[]
 
   Billing Billing[]

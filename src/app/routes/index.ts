@@ -5,11 +5,14 @@ import { NurseRoutes } from '../modules/nurse/Nurse.routes';
 
 import { AdminRoutes } from '../modules/admin/Admin.routes';
 import { AppointmentRoutes } from '../modules/appointment/Appointment.routes';
+import { DiagnosticAppointmentRoutes } from '../modules/diagnosticAppointment/DiagnosticAppointment.routes';
 import { DiagnosticRoutes } from '../modules/diagonistic/Diagonistic.routes';
 import { InventoryRoutes } from '../modules/inventory/Inventory.routes';
+import { LabAppointmentRoutes } from '../modules/labAppointment/LabAppointment.routes';
 import { LaboratoryRoutes } from '../modules/Laboratory/Laboratory.routes';
 import { NoticeRoutes } from '../modules/notice/Notice.routes';
 import { PharmacyRoutes } from '../modules/pharmacy/Pharmacy.routes';
+import { PharmacyAppointmentRoutes } from '../modules/pharmacyAppointment/PharmacyAppointment.routes';
 import { RoomRoutes } from '../modules/room/Room.routes';
 import { ServiceRoutes } from '../modules/Service/Service.routes';
 import { StaffRoutes } from '../modules/staff/Staff.routes';
@@ -62,8 +65,16 @@ const moduleRoutes = [
     routes: PharmacyRoutes,
   },
   {
+    path: '/pharmacyAppointment',
+    routes: PharmacyAppointmentRoutes,
+  },
+  {
     path: '/diagonostic',
     routes: DiagnosticRoutes,
+  },
+  {
+    path: '/diagonosticAppointment',
+    routes: DiagnosticAppointmentRoutes,
   },
   {
     path: '/inventory',
@@ -72,6 +83,10 @@ const moduleRoutes = [
   {
     path: '/laboratory',
     routes: LaboratoryRoutes,
+  },
+  {
+    path: '/laboratoryAppointment',
+    routes: LabAppointmentRoutes,
   },
 ];
 

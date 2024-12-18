@@ -79,7 +79,8 @@ model Pharmacy {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  Appointment Appointment[]
+
+  PharmacyOnAppointment PharmacyOnAppointment[]
 }
 
 
@@ -97,7 +98,7 @@ model LabAppointment {
   id            Int      @id @default(autoincrement())
   laboratoryId  Int
   appointmentId Int
-  testDate      String
+  testDate      String?
   result        String?
   status        String   @default("Pending") // Pending, Completed, InProgress
   createdAt     DateTime @default(now())
@@ -123,9 +124,8 @@ model DiagnosticAppointment {
   id              Int       @id @default(autoincrement())
   diagnosticId    Int
   appointmentId   Int
-  price           Int       // Appointment-specific price for the diagnostic
   result          String?   // Appointment-specific result
-  status          String     @default("Pending") // e.g., Pending, Completed
+  status          String?     @default("Pending") // e.g., Pending, Completed
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
@@ -240,11 +240,24 @@ model Appointment {
   serviceId       Int
   Service         Service           @relation(fields: [serviceId], references: [id])
   Billing         Billing[]
-  Pharmacy        Pharmacy[]
+  Pharmacy        PharmacyOnAppointment[]
   LabAppointment  LabAppointment[]
   DiagnosticAppointment DiagnosticAppointment[]
 
   @@map("appointment")
+}
+
+model PharmacyOnAppointment {
+  id           Int        @id @default(autoincrement())
+  appointmentId Int
+  pharmacyId    Int
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  pharmacy      Pharmacy    @relation(fields: [pharmacyId], references: [id])
+
+  @@unique([appointmentId, pharmacyId]) // Ensures unique pair of appointment and pharmacy
 }
 
 model Room {

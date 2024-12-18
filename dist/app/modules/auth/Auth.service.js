@@ -49,202 +49,224 @@ const signUp = (data) => __awaiter(void 0, void 0, void 0, function* () {
     };
 });
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const logIn = (LoginData) => __awaiter(void 0, void 0, void 0, function* () {
+const logIn = LoginData =>
+  __awaiter(void 0, void 0, void 0, function* () {
     console.log(LoginData);
     const { email, password, role: userRole } = LoginData;
     let isUserExist;
     if (userRole === 'admin') {
-        console.log("here");
-        isUserExist = yield prisma_js_1.default.admin.findFirst({
-            where: {
-                email,
-            },
-        });
+      console.log('here');
+      isUserExist = yield prisma_js_1.default.admin.findFirst({
+        where: {
+          email,
+        },
+      });
     }
     if (userRole === 'patient') {
-        isUserExist = yield prisma_js_1.default.user.findFirst({
-            where: {
-                email,
-            },
-        });
+      isUserExist = yield prisma_js_1.default.user.findFirst({
+        where: {
+          email,
+        },
+      });
     }
     if (userRole === 'doctor') {
-        isUserExist = yield prisma_js_1.default.doctor.findFirst({
-            where: {
-                email,
-            },
-        });
+      isUserExist = yield prisma_js_1.default.doctor.findFirst({
+        where: {
+          email,
+        },
+      });
     }
     if (userRole === 'nurse') {
-        isUserExist = yield prisma_js_1.default.nurse.findFirst({
-            where: {
-                email,
-            },
-        });
+      isUserExist = yield prisma_js_1.default.nurse.findFirst({
+        where: {
+          email,
+        },
+      });
     }
     if (userRole === 'staff') {
-        isUserExist = yield prisma_js_1.default.staff.findFirst({
-            where: {
-                email,
-            },
-        });
+      isUserExist = yield prisma_js_1.default.staff.findFirst({
+        where: {
+          email,
+        },
+      });
     }
     if (!isUserExist) {
-        throw new ApiError_js_1.default(500, 'user not found');
+      throw new ApiError_js_1.default(500, 'user not found');
     }
     const { role, id } = isUserExist;
     let isUserExistWithPassword;
     if (userRole === 'admin') {
-        isUserExistWithPassword = yield prisma_js_1.default.admin.findFirst({
-            where: {
-                email,
-                password,
-            },
-        });
+      isUserExistWithPassword = yield prisma_js_1.default.admin.findFirst({
+        where: {
+          email,
+          password,
+        },
+      });
     }
     if (userRole === 'patient') {
-        isUserExistWithPassword = yield prisma_js_1.default.user.findFirst({
-            where: {
-                email,
-                password,
-            },
-        });
+      isUserExistWithPassword = yield prisma_js_1.default.user.findFirst({
+        where: {
+          email,
+          password,
+        },
+      });
     }
     if (userRole === 'doctor') {
-        isUserExistWithPassword = yield prisma_js_1.default.doctor.findFirst({
-            where: {
-                email,
-                password,
-            },
-        });
+      isUserExistWithPassword = yield prisma_js_1.default.doctor.findFirst({
+        where: {
+          email,
+          password,
+        },
+      });
     }
     if (userRole === 'nurse') {
-        isUserExistWithPassword = yield prisma_js_1.default.nurse.findFirst({
-            where: {
-                email,
-                password,
-            },
-        });
+      isUserExistWithPassword = yield prisma_js_1.default.nurse.findFirst({
+        where: {
+          email,
+          password,
+        },
+      });
     }
     if (userRole === 'staff') {
-        isUserExistWithPassword = yield prisma_js_1.default.staff.findFirst({
-            where: {
-                email,
-                password,
-            },
-        });
+      isUserExistWithPassword = yield prisma_js_1.default.staff.findFirst({
+        where: {
+          email,
+          password,
+        },
+      });
     }
-    console.log(isUserExistWithPassword, 'this si user');
+
     if (!isUserExistWithPassword) {
-        throw new ApiError_js_1.default(500, 'password not matched');
+      throw new ApiError_js_1.default(500, 'password not matched');
     }
-    const accessToken = jwtHelpers_js_1.jwtHelpers.createToken({ email, role, id }, index_js_1.default.jwt.secret, index_js_1.default.jwt.expires_in);
-    const refreshToken = jwtHelpers_js_1.jwtHelpers.createToken({ email, password, id }, index_js_1.default.jwt.refresh_secret, index_js_1.default.jwt.refresh_expires_in);
+    const accessToken = jwtHelpers_js_1.jwtHelpers.createToken(
+      { email, role, id },
+      index_js_1.default.jwt.secret,
+      index_js_1.default.jwt.expires_in,
+    );
+    const refreshToken = jwtHelpers_js_1.jwtHelpers.createToken(
+      { email, password, id },
+      index_js_1.default.jwt.refresh_secret,
+      index_js_1.default.jwt.refresh_expires_in,
+    );
     return {
-        accessToken,
-        refreshToken,
+      accessToken,
+      refreshToken,
     };
-});
-const changePassword = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
+  });
+const changePassword = (user, payload) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     const { oldPassword, newPassword } = payload;
     const isUserExist = yield prisma_js_1.default.user.findUnique({
-        where: {
-            id: user === null || user === void 0 ? void 0 : user.id,
-        },
+      where: {
+        id: user === null || user === void 0 ? void 0 : user.id,
+      },
     });
     if (!isUserExist) {
-        throw new ApiError_js_1.default(500, 'User does not exist');
+      throw new ApiError_js_1.default(500, 'User does not exist');
     }
     // // checking old password
     if (isUserExist.password !== oldPassword) {
-        throw new ApiError_js_1.default(500, 'Old Password is incorrect');
+      throw new ApiError_js_1.default(500, 'Old Password is incorrect');
     }
     const result = yield prisma_js_1.default.user.update({
-        where: {
-            id: user === null || user === void 0 ? void 0 : user.id,
-        },
-        data: {
-            password: newPassword,
-        },
+      where: {
+        id: user === null || user === void 0 ? void 0 : user.id,
+      },
+      data: {
+        password: newPassword,
+      },
     });
     return result;
-});
-const forgotPass = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+  });
+const forgotPass = payload =>
+  __awaiter(void 0, void 0, void 0, function* () {
     const isUserExist = yield prisma_js_1.default.user.findFirst({
-        where: {
-            email: payload.email,
-        },
+      where: {
+        email: payload.email,
+      },
     });
     if (!isUserExist) {
-        throw new ApiError_js_1.default(500, 'User does not exist!');
+      throw new ApiError_js_1.default(500, 'User does not exist!');
     }
-    const passResetToken = yield jwtHelpers_js_1.jwtHelpers.createResetToken({ id: isUserExist.id, role: isUserExist.role }, index_js_1.default.jwt.secret, '50m');
+    const passResetToken = yield jwtHelpers_js_1.jwtHelpers.createResetToken(
+      { id: isUserExist.id, role: isUserExist.role },
+      index_js_1.default.jwt.secret,
+      '50m',
+    );
     const resetLink = index_js_1.default.resetlink + `token=${passResetToken}`;
-    yield (0, sendResetMail_js_1.sendEmail)(isUserExist.email, `
+    yield (0, sendResetMail_js_1.sendEmail)(
+      isUserExist.email,
+      `
       <div>
         <p>Hi, ${isUserExist.name}</p>
         <p>Your password reset link: <a href=${resetLink}>Click Here</a></p>
         <p>Thank you</p>
       </div>
-  `);
+  `,
+    );
     return {
-        message: 'Check your email!',
+      message: 'Check your email!',
     };
-});
-const me = (userData) => __awaiter(void 0, void 0, void 0, function* () {
+  });
+const me = userData =>
+  __awaiter(void 0, void 0, void 0, function* () {
     const { email, role, id } = userData;
     let isUserExistWithPassword;
     if (role === 'admin') {
-        isUserExistWithPassword = yield prisma_js_1.default.admin.findFirst({
-            where: {
-                email,
-                role,
-                id,
-            },
-        });
+      isUserExistWithPassword = yield prisma_js_1.default.admin.findFirst({
+        where: {
+          email,
+          role,
+          id,
+        },
+      });
     }
     if (role === 'patient') {
-        isUserExistWithPassword = yield prisma_js_1.default.user.findFirst({
-            where: {
-                email,
-                role,
-                id,
-            },
-        });
+      isUserExistWithPassword = yield prisma_js_1.default.user.findFirst({
+        where: {
+          email,
+          role,
+          id,
+        },
+      });
     }
     if (role === 'doctor') {
-        isUserExistWithPassword = yield prisma_js_1.default.doctor.findFirst({
-            where: {
-                email,
-                role,
-                id,
-            },
-        });
+      isUserExistWithPassword = yield prisma_js_1.default.doctor.findFirst({
+        where: {
+          email,
+          role,
+          id,
+        },
+      });
     }
     if (role === 'nurse') {
-        isUserExistWithPassword = yield prisma_js_1.default.nurse.findFirst({
-            where: {
-                email,
-                role,
-                id,
-            },
-        });
+      isUserExistWithPassword = yield prisma_js_1.default.nurse.findFirst({
+        where: {
+          email,
+          role,
+          id,
+        },
+      });
     }
     if (role === 'staff') {
-        isUserExistWithPassword = yield prisma_js_1.default.staff.findFirst({
-            where: {
-                email,
-                role,
-                id,
-            },
-        });
+      isUserExistWithPassword = yield prisma_js_1.default.staff.findFirst({
+        where: {
+          email,
+          role,
+          id,
+        },
+      });
     }
     if (!isUserExistWithPassword) {
-        throw new ApiError_js_1.default(500, 'You are not authorized to access this resource!');
+      throw new ApiError_js_1.default(
+        500,
+        'You are not authorized to access this resource!',
+      );
     }
-    console.log(isUserExistWithPassword, 'this si user');
+
     return isUserExistWithPassword;
-});
+  });
 const resetPassword = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const { newPassword } = payload;
     const user = yield prisma_js_1.default.user.findUnique({

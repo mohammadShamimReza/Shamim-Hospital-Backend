@@ -3,14 +3,12 @@
 import { User } from '@prisma/client';
 
 import { JwtPayload, Secret } from 'jsonwebtoken';
-import prisma from '../../../shared/prisma.js';
-import { jwtHelpers } from '../../../helpers/jwtHelpers.js';
 import config from '../../../config/index.js';
 import ApiError from '../../../errors/ApiError.js';
+import { jwtHelpers } from '../../../helpers/jwtHelpers.js';
+import prisma from '../../../shared/prisma.js';
 import { IChangePassword } from './auth.interface.js';
 import { sendEmail } from './sendResetMail.js';
-
-
 
 const signUp = async (data: User) => {
   const userRole = data.role;
@@ -58,55 +56,59 @@ const signUp = async (data: User) => {
   };
 };
 
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const logIn = async (LoginData: { email: string; password: string; role: string }) => {
-  console.log(LoginData)
+const logIn = async (LoginData: {
+  email: string;
+  password: string;
+  role: string;
+}) => {
+  console.log(LoginData);
   const { email, password, role: userRole } = LoginData;
-  
-  let isUserExist
-  if (userRole === 'admin') { 
-    console.log("here")
-     isUserExist = await prisma.admin.findFirst({
+
+  let isUserExist;
+  if (userRole === 'admin') {
+    console.log('here');
+    isUserExist = await prisma.admin.findFirst({
       where: {
         email,
       },
     });
   }
-   if (userRole === 'patient') {
-     isUserExist = await prisma.user.findFirst({
-       where: {
-         email,
-       },
-     });
-   }
-if (userRole === 'doctor') {
-  isUserExist = await prisma.doctor.findFirst({
-    where: {
-      email,
-    },
-  });
-}if (userRole === 'nurse') {
-  isUserExist = await prisma.nurse.findFirst({
-    where: {
-      email,
-    },
-  });
-}if (userRole === 'staff') {
-  isUserExist = await prisma.staff.findFirst({
-    where: {
-      email,
-    },
-  });
-}
-  
+  if (userRole === 'patient') {
+    isUserExist = await prisma.user.findFirst({
+      where: {
+        email,
+      },
+    });
+  }
+  if (userRole === 'doctor') {
+    isUserExist = await prisma.doctor.findFirst({
+      where: {
+        email,
+      },
+    });
+  }
+  if (userRole === 'nurse') {
+    isUserExist = await prisma.nurse.findFirst({
+      where: {
+        email,
+      },
+    });
+  }
+  if (userRole === 'staff') {
+    isUserExist = await prisma.staff.findFirst({
+      where: {
+        email,
+      },
+    });
+  }
 
   if (!isUserExist) {
     throw new ApiError(500, 'user not found');
   }
   const { role, id } = isUserExist;
 
-  let isUserExistWithPassword
+  let isUserExistWithPassword;
   if (userRole === 'admin') {
     isUserExistWithPassword = await prisma.admin.findFirst({
       where: {
@@ -147,9 +149,6 @@ if (userRole === 'doctor') {
       },
     });
   }
-  
-  console.log(isUserExistWithPassword, 'this si user')
-  
 
   if (!isUserExistWithPassword) {
     throw new ApiError(500, 'password not matched');
@@ -204,8 +203,8 @@ const changePassword = async (
   return result;
 };
 
-const forgotPass = async ({ email, role }: {email: string, role: string}) => {
-console.log(email, role)
+const forgotPass = async ({ email, role }: { email: string; role: string }) => {
+  console.log(email, role);
   let isUserExist;
   if (role === 'admin') {
     console.log('here');
@@ -244,11 +243,7 @@ console.log(email, role)
     });
   }
 
-  console.log(
-    isUserExist,
-    'this is user'
-  )
-
+  console.log(isUserExist, 'this is user');
 
   if (!isUserExist) {
     throw new ApiError(500, 'User does not exist!');
@@ -261,7 +256,7 @@ console.log(email, role)
   );
 
   const resetLink: string = config.resetlink + `?token=${passResetToken}`;
-console.log(resetLink)
+  console.log(resetLink);
   await sendEmail(
     isUserExist.email,
     `
@@ -330,8 +325,6 @@ const me = async (userData: JwtPayload) => {
   if (!isUserExistWithPassword) {
     throw new ApiError(500, 'You are not authorized to access this resource!');
   }
-
-  console.log(isUserExistWithPassword, 'this si user');
 
   return isUserExistWithPassword;
 };

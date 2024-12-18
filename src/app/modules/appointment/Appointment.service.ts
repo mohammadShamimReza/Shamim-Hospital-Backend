@@ -12,16 +12,17 @@ const getAllFromDb = async (): Promise<Appointment[]> => {
       patient: true,
       doctor: true,
       Service: true,
-   
-  } });
+    },
+  });
   return result;
 };
 const getById = async (id: number): Promise<Appointment | null> => {
   const result = await prisma.appointment.findUnique({
     where: {
-      id
+      id,
     },
   });
+  console.log(result, 'this is form appointment');
   return result;
 };
 

@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
-import catchAsync from '../../../shared/catchAsync';
-import { AuthService } from './Auth.service';
+import { Secret } from 'jsonwebtoken';
 import config from '../../../config/index';
-import sendResponse from '../../../shared/sendResponse';
 import ApiError from '../../../errors/ApiError';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
-import { Secret } from 'jsonwebtoken';
-
+import catchAsync from '../../../shared/catchAsync';
+import sendResponse from '../../../shared/sendResponse';
+import { AuthService } from './Auth.service';
 
 const signUp = catchAsync(async (req: Request, res: Response) => {
   const result = await AuthService.signUp(req.body);
@@ -45,8 +44,7 @@ const logIn = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const me = catchAsync(async (req: Request, res: Response) => { 
-  console.log(req.headers, 'this is me');
+const me = catchAsync(async (req: Request, res: Response) => {
   const token = req.headers.authorization;
   if (!token) {
     throw new ApiError(400, 'You are not authorized me');
@@ -55,15 +53,15 @@ const me = catchAsync(async (req: Request, res: Response) => {
     token,
     config.jwt.secret as Secret,
   );
-  console.log(verifiedUser, 'this is verifiedUser');
+
   const result = await AuthService.me(verifiedUser);
-   sendResponse(res, {
-     statusCode: 200,
-     success: true,
-     message: 'User founded successfully !',
-     data: result,
-   });
-})
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'User founded successfully !',
+    data: result,
+  });
+});
 
 const changePassword = catchAsync(async (req: Request, res: Response) => {
   const user = req.user;

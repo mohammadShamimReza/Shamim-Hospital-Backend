@@ -65,22 +65,26 @@ const logIn = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, 
         },
     });
 }));
-const me = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.headers, 'this is me');
+const me = (0, catchAsync_1.default)((req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     const token = req.headers.authorization;
     if (!token) {
-        throw new ApiError_1.default(400, 'You are not authorized me');
+      throw new ApiError_1.default(400, 'You are not authorized me');
     }
-    const verifiedUser = jwtHelpers_1.jwtHelpers.verifyToken(token, index_1.default.jwt.secret);
-    console.log(verifiedUser, 'this is verifiedUser');
+    const verifiedUser = jwtHelpers_1.jwtHelpers.verifyToken(
+      token,
+      index_1.default.jwt.secret,
+    );
+
     const result = yield Auth_service_1.AuthService.me(verifiedUser);
     (0, sendResponse_1.default)(res, {
-        statusCode: 200,
-        success: true,
-        message: 'User founded successfully !',
-        data: result,
+      statusCode: 200,
+      success: true,
+      message: 'User founded successfully !',
+      data: result,
     });
-}));
+  }),
+);
 const changePassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = req.user;
     const passwordData = __rest(req.body, []);

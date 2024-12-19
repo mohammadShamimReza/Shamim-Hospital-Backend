@@ -16,7 +16,7 @@ model User {
   name          String
   email         String        @unique
   password      String
-  phone         Int
+  phone         BigInt
   address       String?
   profile_image String?
   role          String
@@ -34,7 +34,7 @@ model Doctor {
   name             String
   email            String            @unique
   password         String
-  phone            Int
+  phone            BigInt
   address          String?
   profile_image    String?
   role             String
@@ -169,7 +169,7 @@ model Nurse {
   password      String
   address       String?
   profile_image String?
-  phone         Int
+  phone         BigInt
   role          String
   roomId        Int?
   room          Room?   @relation(fields: [roomId], references: [id])
@@ -183,7 +183,7 @@ model Staff {
   name          String
   email         String  @unique
   password      String
-  phone         Int
+  phone         BigInt
   address       String?
   profile_image String?
   role          String
@@ -198,7 +198,7 @@ model Admin {
   id            Int     @id @default(autoincrement())
   name          String
   email         String  @unique
-  phone         Int
+  phone         BigInt
   password      String
   address       String?
   profile_image String?

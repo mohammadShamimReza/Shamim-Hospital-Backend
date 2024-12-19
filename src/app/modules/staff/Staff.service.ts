@@ -33,6 +33,7 @@ const updateStaff = async (
     },
     data: payload,
   });
+  console.log(result, 'staff updated');
   return result;
 };
 

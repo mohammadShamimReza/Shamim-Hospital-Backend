@@ -31,7 +31,7 @@ export const paymentController = {
       total_amount,
       currency,
       tran_id, // Unique transaction ID
-      success_url: `${backend_url}/payment/success/${userId}`,
+      success_url: `${frontend_url}/payment/success/${userId}`,
       fail_url: `${frontend_url}/payment/fail/${userId}`,
       cancel_url: `${frontend_url}/payment/cancel/${userId}`,
       ipn_url: `${frontend_url}/payment/ipn`,

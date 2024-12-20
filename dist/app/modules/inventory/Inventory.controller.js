@@ -12,76 +12,65 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppointmentController = void 0;
+exports.InventoryController = void 0;
 const http_status_codes_1 = require("http-status-codes");
 const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
-const Appointment_service_1 = require("./Appointment.service");
-const createAppointment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const Inventory_service_1 = require("./Inventory.service");
+const createInventory = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
-    const result = yield Appointment_service_1.AppointmentService.createAppointment(payload);
+    const result = yield Inventory_service_1.InventoryService.createInventory(payload);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
-        message: 'Appointment created successfully',
+        message: 'Inventory created successfully',
         data: result,
     });
 }));
 const getAllFromDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield Appointment_service_1.AppointmentService.getAllFromDb();
+    const result = yield Inventory_service_1.InventoryService.getAllFromDb();
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
-        message: 'Appointment fetched successfully',
+        message: 'Inventorys fetched successfully',
         data: result,
     });
 }));
 const getById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const result = yield Appointment_service_1.AppointmentService.getById(Number(id));
+    const result = yield Inventory_service_1.InventoryService.getById(Number(id));
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
-        message: 'Appointment fetched successfully',
+        message: 'Inventory fetched successfully',
         data: result,
     });
 }));
-const getAllAppointmentByUserId = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const result = yield Appointment_service_1.AppointmentService.getAllAppointmentByUserId(Number(id));
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_codes_1.StatusCodes.OK,
-        success: true,
-        message: 'Appointment fetched successfully',
-        data: result,
-    });
-}));
-const updateAppointment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const updateInventory = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     const payload = req.body;
-    const result = yield Appointment_service_1.AppointmentService.updateAppointment(Number(id), payload);
+    const result = yield Inventory_service_1.InventoryService.updateInventory(Number(id), payload);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
-        message: 'Appointment update successfully',
+        message: 'Inventory updated successfully',
         data: result,
     });
 }));
-const deleteAppointment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteInventory = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
-    const result = yield Appointment_service_1.AppointmentService.deleteAppointment(Number(id));
+    const result = yield Inventory_service_1.InventoryService.deleteInventory(Number(id));
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
-        message: 'Appointment delete successfully',
+        message: 'Inventory deleted successfully',
         data: result,
     });
 }));
-exports.AppointmentController = {
-    createAppointment,
+exports.InventoryController = {
+    createInventory,
     getAllFromDB,
     getById,
-    updateAppointment,
-    deleteAppointment,
-    getAllAppointmentByUserId,
+    updateInventory,
+    deleteInventory,
 };

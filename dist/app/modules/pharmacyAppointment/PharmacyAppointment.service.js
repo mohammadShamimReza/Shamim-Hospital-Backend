@@ -12,49 +12,51 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StaffService = void 0;
+exports.PharmacyAppointmentService = void 0;
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
-const createStaff = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.staff.create({ data: payload });
+const createPharmacyAppointment = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.pharmacyOnAppointment.create({ data: payload });
     return result;
 });
 const getAllFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.staff.findMany({});
-    return result;
-});
-const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.staff.findUnique({
-        where: {
-            id,
-        },
+    const result = yield prisma_1.default.pharmacyOnAppointment.findMany({
         include: {
-            room: true,
-        }
+            appointment: true,
+            pharmacy: true,
+        },
     });
     return result;
 });
-const updateStaff = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.staff.update({
+const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.pharmacyOnAppointment.findUnique({
+        where: {
+            id,
+        },
+    });
+    console.log(result, 'this is form pharmacyOnAppointment');
+    return result;
+});
+const updatePharmacyAppointment = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.pharmacyOnAppointment.update({
         where: {
             id,
         },
         data: payload,
     });
-    console.log(result, 'staff updated');
     return result;
 });
-const deleteStaff = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.staff.delete({
+const deletePharmacyAppointment = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.pharmacyOnAppointment.delete({
         where: {
             id,
         },
     });
     return result;
 });
-exports.StaffService = {
-    createStaff,
+exports.PharmacyAppointmentService = {
+    createPharmacyAppointment,
     getAllFromDb,
     getById,
-    updateStaff,
-    deleteStaff,
+    updatePharmacyAppointment,
+    deletePharmacyAppointment,
 };

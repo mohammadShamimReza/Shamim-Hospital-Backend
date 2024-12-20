@@ -23,51 +23,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RoomService = void 0;
+exports.InventoryService = void 0;
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
-const createRoom = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.room.create({ data: payload });
+const createInventory = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.inventory.create({ data: payload });
     return result;
 });
 const getAllFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.room.findMany({
-        include: {
-            nurses: true,
-            staff: true
-        }
-    });
+    const result = yield prisma_1.default.inventory.findMany({});
     return result;
 });
 const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.room.findUnique({
+    const result = yield prisma_1.default.inventory.findUnique({
         where: { id },
     });
     return result;
 });
-const updateRoom = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const { addNurses, removeNurses, addStaff, removeStaff } = payload, roomData = __rest(payload, ["addNurses", "removeNurses", "addStaff", "removeStaff"]);
-    const result = yield prisma_1.default.room.update({
+const updateInventory = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const inventoryData = __rest(payload, []);
+    const result = yield prisma_1.default.inventory.update({
         where: { id },
-        data: Object.assign(Object.assign({}, roomData), { nurses: {
-                connect: (addNurses === null || addNurses === void 0 ? void 0 : addNurses.map(nurseId => ({ id: nurseId }))) || [],
-                disconnect: (removeNurses === null || removeNurses === void 0 ? void 0 : removeNurses.map(nurseId => ({ id: nurseId }))) || [],
-            }, staff: {
-                connect: (addStaff === null || addStaff === void 0 ? void 0 : addStaff.map(staffId => ({ id: staffId }))) || [],
-                disconnect: (removeStaff === null || removeStaff === void 0 ? void 0 : removeStaff.map(staffId => ({ id: staffId }))) || [],
-            } }),
+        data: Object.assign({}, inventoryData),
     });
     return result;
 });
-const deleteRoom = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.room.delete({
+const deleteInventory = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.inventory.delete({
         where: { id },
     });
     return result;
 });
-exports.RoomService = {
-    createRoom,
+exports.InventoryService = {
+    createInventory,
     getAllFromDb,
     getById,
-    updateRoom,
-    deleteRoom,
+    updateInventory,
+    deleteInventory,
 };

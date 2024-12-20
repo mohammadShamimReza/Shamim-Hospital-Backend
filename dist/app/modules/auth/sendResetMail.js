@@ -18,13 +18,13 @@ const config_1 = __importDefault(require("../../../config"));
 function sendEmail(to, html) {
     return __awaiter(this, void 0, void 0, function* () {
         const transporter = nodemailer_1.default.createTransport({
-            host: 'smtp.gmail.com',
+            host: 'smtp.ethereal.email',
             port: 587,
             secure: false,
             auth: {
                 user: config_1.default.email,
-                pass: config_1.default.appPass
-            }
+                pass: config_1.default.appPass,
+            },
         });
         yield transporter.sendMail({
             from: config_1.default.email, // sender address

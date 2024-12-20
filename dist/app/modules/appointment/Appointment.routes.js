@@ -12,6 +12,7 @@ const Appointment_controller_1 = require("./Appointment.controller");
 const Appointment_validation_1 = require("./Appointment.validation");
 const router = express_1.default.Router();
 router.get('/:id', Appointment_controller_1.AppointmentController.getById);
+router.get('/user/:id', Appointment_controller_1.AppointmentController.getAllAppointmentByUserId);
 router.get('/', Appointment_controller_1.AppointmentController.getAllFromDB);
 router.post('/create', 
 // auth(ENUM_USER_ROLE.ADMIN),
@@ -19,5 +20,5 @@ router.post('/create',
 router.patch('/:id', 
 // auth(ENUM_USER_ROLE.ADMIN),
 (0, validateRequest_1.default)(Appointment_validation_1.AppointmentValidation.updateAppointment), Appointment_controller_1.AppointmentController.updateAppointment);
-router.delete('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN), Appointment_controller_1.AppointmentController.deleteAppointment);
+router.delete('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.USER), Appointment_controller_1.AppointmentController.deleteAppointment);
 exports.AppointmentRoutes = router;

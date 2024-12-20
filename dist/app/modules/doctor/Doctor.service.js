@@ -19,7 +19,11 @@ const createDoctor = (payload) => __awaiter(void 0, void 0, void 0, function* ()
     return result;
 });
 const getAllFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.doctor.findMany({});
+    const result = yield prisma_1.default.doctor.findMany({
+        include: {
+            Service: true,
+        },
+    });
     return result;
 });
 const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
@@ -28,6 +32,7 @@ const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
             id,
         },
         include: {
+            Service: true,
             appointments: {
                 select: {
                     id: true,
@@ -35,6 +40,39 @@ const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
                     prescription: true,
                     patient: true,
                     Service: true,
+                    status: true,
+                    price: true,
+                    LabAppointment: {
+                        select: {
+                            laboratory: {
+                                select: {
+                                    id: true,
+                                    testName: true,
+                                },
+                            },
+                        },
+                    },
+                    DiagnosticAppointment: {
+                        select: {
+                            diagnostic: {
+                                select: {
+                                    id: true,
+                                    diagnosticName: true,
+                                },
+                            },
+                        },
+                    },
+                    Pharmacy: {
+                        select: {
+                            pharmacy: {
+                                select: {
+                                    id: true,
+                                    name: true,
+                                },
+                            },
+                        },
+                    },
+                    Billing: true,
                 },
             },
         },

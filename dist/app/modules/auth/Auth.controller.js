@@ -24,12 +24,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
-const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
-const Auth_service_1 = require("./Auth.service");
 const index_1 = __importDefault(require("../../../config/index"));
-const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
 const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
 const jwtHelpers_1 = require("../../../helpers/jwtHelpers");
+const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
+const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
+const Auth_service_1 = require("./Auth.service");
 const signUp = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield Auth_service_1.AuthService.signUp(req.body);
     const { accessToken, refreshToken } = result;
@@ -65,26 +65,20 @@ const logIn = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, 
         },
     });
 }));
-const me = (0, catchAsync_1.default)((req, res) =>
-  __awaiter(void 0, void 0, void 0, function* () {
+const me = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const token = req.headers.authorization;
     if (!token) {
-      throw new ApiError_1.default(400, 'You are not authorized me');
+        throw new ApiError_1.default(400, 'You are not authorized me');
     }
-    const verifiedUser = jwtHelpers_1.jwtHelpers.verifyToken(
-      token,
-      index_1.default.jwt.secret,
-    );
-
+    const verifiedUser = jwtHelpers_1.jwtHelpers.verifyToken(token, index_1.default.jwt.secret);
     const result = yield Auth_service_1.AuthService.me(verifiedUser);
     (0, sendResponse_1.default)(res, {
-      statusCode: 200,
-      success: true,
-      message: 'User founded successfully !',
-      data: result,
+        statusCode: 200,
+        success: true,
+        message: 'User founded successfully !',
+        data: result,
     });
-  }),
-);
+}));
 const changePassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = req.user;
     const passwordData = __rest(req.body, []);
@@ -97,6 +91,7 @@ const changePassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
     });
 }));
 const forgotPass = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body, 'this is forgotPass');
     yield Auth_service_1.AuthService.forgotPass(req.body);
     (0, sendResponse_1.default)(res, {
         statusCode: 200,

@@ -16,6 +16,8 @@ router.get('/', Staff_controller_1.StaffController.getAllFromDB);
 router.post('/create', 
 // auth(ENUM_USER_ROLE.ADMIN),
 (0, validateRequest_1.default)(Staff_validation_1.StaffValidation.createStaff), Staff_controller_1.StaffController.createStaff);
-router.patch('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN), (0, validateRequest_1.default)(Staff_validation_1.StaffValidation.updateStaff), Staff_controller_1.StaffController.updateStaff);
+router.patch('/:id', 
+// auth(ENUM_USER_ROLE.ADMIN),
+(0, validateRequest_1.default)(Staff_validation_1.StaffValidation.updateStaff), Staff_controller_1.StaffController.updateStaff);
 router.delete('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN), Staff_controller_1.StaffController.deleteStaff);
 exports.StaffRoutes = router;

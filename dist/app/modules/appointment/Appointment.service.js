@@ -24,14 +24,51 @@ const getAllFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
             patient: true,
             doctor: true,
             Service: true,
-        }
+        },
     });
     return result;
 });
 const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma_1.default.appointment.findUnique({
         where: {
-            id
+            id,
+        },
+    });
+    console.log(result, 'this is form appointment');
+    return result;
+});
+const getAllAppointmentByUserId = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.appointment.findMany({
+        where: {
+            patientId: userId,
+        },
+        select: {
+            doctor: true,
+            patient: true,
+            id: true,
+            Service: {
+                select: {
+                    serviceName: true,
+                },
+            },
+            appointmentDate: true,
+            prescription: true,
+            LabAppointment: {
+                select: {
+                    laboratory: true,
+                },
+            },
+            DiagnosticAppointment: {
+                select: {
+                    diagnostic: true,
+                },
+            },
+            Pharmacy: {
+                select: {
+                    pharmacy: true,
+                },
+            },
+            status: true,
         },
     });
     return result;
@@ -59,4 +96,5 @@ exports.AppointmentService = {
     getById,
     updateAppointment,
     deleteAppointment,
+    getAllAppointmentByUserId,
 };

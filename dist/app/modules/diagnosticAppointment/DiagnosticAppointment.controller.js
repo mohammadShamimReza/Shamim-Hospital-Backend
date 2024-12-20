@@ -12,76 +12,65 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppointmentController = void 0;
+exports.DiagnosticAppointmentController = void 0;
 const http_status_codes_1 = require("http-status-codes");
 const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
-const Appointment_service_1 = require("./Appointment.service");
-const createAppointment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const DiagnosticAppointment_service_1 = require("./DiagnosticAppointment.service");
+const createDiagnosticAppointment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
-    const result = yield Appointment_service_1.AppointmentService.createAppointment(payload);
+    const result = yield DiagnosticAppointment_service_1.DiagnosticAppointmentService.createDiagnosticAppointment(payload);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
-        message: 'Appointment created successfully',
+        message: 'DiagnosticAppointment created successfully',
         data: result,
     });
 }));
 const getAllFromDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield Appointment_service_1.AppointmentService.getAllFromDb();
+    const result = yield DiagnosticAppointment_service_1.DiagnosticAppointmentService.getAllFromDb();
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
-        message: 'Appointment fetched successfully',
+        message: 'DiagnosticAppointment fetched successfully',
         data: result,
     });
 }));
 const getById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const result = yield Appointment_service_1.AppointmentService.getById(Number(id));
+    const result = yield DiagnosticAppointment_service_1.DiagnosticAppointmentService.getById(Number(id));
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
-        message: 'Appointment fetched successfully',
+        message: 'DiagnosticAppointment fetched successfully',
         data: result,
     });
 }));
-const getAllAppointmentByUserId = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const result = yield Appointment_service_1.AppointmentService.getAllAppointmentByUserId(Number(id));
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_codes_1.StatusCodes.OK,
-        success: true,
-        message: 'Appointment fetched successfully',
-        data: result,
-    });
-}));
-const updateAppointment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const updateDiagnosticAppointment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     const payload = req.body;
-    const result = yield Appointment_service_1.AppointmentService.updateAppointment(Number(id), payload);
+    const result = yield DiagnosticAppointment_service_1.DiagnosticAppointmentService.updateDiagnosticAppointment(Number(id), payload);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
-        message: 'Appointment update successfully',
+        message: 'DiagnosticAppointment update successfully',
         data: result,
     });
 }));
-const deleteAppointment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteDiagnosticAppointment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
-    const result = yield Appointment_service_1.AppointmentService.deleteAppointment(Number(id));
+    const result = yield DiagnosticAppointment_service_1.DiagnosticAppointmentService.deleteDiagnosticAppointment(Number(id));
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_codes_1.StatusCodes.OK,
         success: true,
-        message: 'Appointment delete successfully',
+        message: 'DiagnosticAppointment delete successfully',
         data: result,
     });
 }));
-exports.AppointmentController = {
-    createAppointment,
+exports.DiagnosticAppointmentController = {
+    createDiagnosticAppointment,
     getAllFromDB,
     getById,
-    updateAppointment,
-    deleteAppointment,
-    getAllAppointmentByUserId,
+    updateDiagnosticAppointment,
+    deleteDiagnosticAppointment,
 };

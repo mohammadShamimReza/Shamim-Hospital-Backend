@@ -13,7 +13,7 @@
     "pretter:check": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "prettier:fix": "prettier --write .",
     "lint:pretter": "npm run lint:check && npm run pretter:check",
-    "build": "prisma generate && tsc"
+    "build": "prisma generate && tsc && prisma migrate deploy"
   },
   "lint-staged": {
     "src/**/*.ts": "npm run lint:pretter"

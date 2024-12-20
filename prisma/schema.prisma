@@ -1,5 +1,6 @@
 // This is your Prisma schema file
 
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,7 +10,7 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
-
+        
 // User Model
 model User {
   id            Int           @id @default(autoincrement())

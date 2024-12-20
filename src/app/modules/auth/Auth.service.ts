@@ -64,7 +64,7 @@ const logIn = async (LoginData: {
 }) => {
   const { email, password, role: userRole } = LoginData;
 
-  const user = await prisma.admin.findMany({});
+  const user = await prisma.admin.findMany();
   console.log(user, 'this is user');
   let isUserExist;
   if (userRole === 'admin') {

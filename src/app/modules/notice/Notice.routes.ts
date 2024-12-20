@@ -12,7 +12,7 @@ router.get('/', NoticeController.getAllFromDB);
 
 router.post(
   '/create',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN),
   validateRequest(NoticeValidation.createNotice),
   NoticeController.createNotice,
 );

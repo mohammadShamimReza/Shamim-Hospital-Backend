@@ -15,20 +15,25 @@ router.get('/user/:id', AppointmentController.getAllAppointmentByUserId);
 router.get('/', AppointmentController.getAllFromDB);
 router.post(
   '/create',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.USER),
   validateRequest(AppointmentValidation.createAppointment),
   AppointmentController.createAppointment,
 );
 
 router.patch(
   '/:id',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(
+    ENUM_USER_ROLE.ADMIN,
+    ENUM_USER_ROLE.USER,
+    ENUM_USER_ROLE.DOCTOR,
+    ENUM_USER_ROLE.Staff,
+  ),
   validateRequest(AppointmentValidation.updateAppointment),
   AppointmentController.updateAppointment,
 );
 router.delete(
   '/:id',
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER, ENUM_USER_ROLE.Staff),
   AppointmentController.deleteAppointment,
 );
 

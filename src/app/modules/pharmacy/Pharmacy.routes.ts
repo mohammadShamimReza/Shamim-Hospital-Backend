@@ -12,7 +12,7 @@ router.get('/', PharmacyController.getAllFromDB);
 
 router.post(
   '/create',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN),
   validateRequest(PharmacyValidation.createPharmacy),
   PharmacyController.createPharmacy,
 );

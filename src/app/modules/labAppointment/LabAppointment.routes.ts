@@ -12,20 +12,20 @@ router.get('/:id', LabAppointmentController.getById);
 router.get('/', LabAppointmentController.getAllFromDB);
 router.post(
   '/create',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.DOCTOR),
   validateRequest(LabAppointmentValidation.createLabAppointment),
   LabAppointmentController.createLabAppointment,
 );
 
 router.patch(
   '/:id',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.DOCTOR),
   validateRequest(LabAppointmentValidation.updateLabAppointment),
   LabAppointmentController.updateLabAppointment,
 );
 router.delete(
   '/:id',
-  auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.DOCTOR),
   LabAppointmentController.deleteLabAppointment,
 );
 

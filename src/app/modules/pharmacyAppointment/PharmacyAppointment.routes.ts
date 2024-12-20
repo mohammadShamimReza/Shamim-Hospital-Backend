@@ -12,20 +12,20 @@ router.get('/:id', PharmacyAppointmentController.getById);
 router.get('/', PharmacyAppointmentController.getAllFromDB);
 router.post(
   '/create',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.DOCTOR),
   validateRequest(PharmacyOnAppointmentValidation.createPharmacyOnAppointment),
   PharmacyAppointmentController.createPharmacyAppointment,
 );
 
 router.patch(
   '/:id',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.DOCTOR, ENUM_USER_ROLE.Staff),
   validateRequest(PharmacyOnAppointmentValidation.updatePharmacyOnAppointment),
   PharmacyAppointmentController.updatePharmacyAppointment,
 );
 router.delete(
   '/:id',
-  auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.DOCTOR, ENUM_USER_ROLE.Staff),
   PharmacyAppointmentController.deletePharmacyAppointment,
 );
 

@@ -12,14 +12,14 @@ router.get('/', StaffController.getAllFromDB);
 
 router.post(
   '/create',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN),
   validateRequest(StaffValidation.createStaff),
   StaffController.createStaff,
 );
 
 router.patch(
   '/:id',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.Staff),
   validateRequest(StaffValidation.updateStaff),
   StaffController.updateStaff,
 );

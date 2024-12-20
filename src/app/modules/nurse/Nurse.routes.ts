@@ -12,14 +12,14 @@ router.get('/', NurseController.getAllFromDB);
 
 router.post(
   '/create',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN),
   validateRequest(NurseValidation.createNurse),
   NurseController.createNurse,
 );
 
 router.patch(
   '/:id',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.Nuarse),
   validateRequest(NurseValidation.updateNurse),
   NurseController.updateNurse,
 );

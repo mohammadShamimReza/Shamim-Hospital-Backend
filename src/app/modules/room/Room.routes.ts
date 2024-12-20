@@ -12,7 +12,7 @@ router.get('/', RoomController.getAllFromDB);
 
 router.post(
   '/create',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN),
   validateRequest(RoomValidation.createRoom),
   RoomController.createRoom,
 );

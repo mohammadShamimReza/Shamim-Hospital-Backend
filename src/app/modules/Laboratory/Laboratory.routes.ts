@@ -12,7 +12,7 @@ router.get('/', LaboratoryController.getAllFromDB);
 
 router.post(
   '/create',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN),
   validateRequest(LaboratoryValidation.createLaboratory),
   LaboratoryController.createLaboratory,
 );

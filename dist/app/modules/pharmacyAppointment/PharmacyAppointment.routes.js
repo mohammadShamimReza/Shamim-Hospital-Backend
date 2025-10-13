@@ -13,11 +13,7 @@ const PharmacyAppointment_validation_1 = require("./PharmacyAppointment.validati
 const router = express_1.default.Router();
 router.get('/:id', PharmacyAppointment_controller_1.PharmacyAppointmentController.getById);
 router.get('/', PharmacyAppointment_controller_1.PharmacyAppointmentController.getAllFromDB);
-router.post('/create', 
-// auth(ENUM_USER_ROLE.ADMIN),
-(0, validateRequest_1.default)(PharmacyAppointment_validation_1.PharmacyOnAppointmentValidation.createPharmacyOnAppointment), PharmacyAppointment_controller_1.PharmacyAppointmentController.createPharmacyAppointment);
-router.patch('/:id', 
-// auth(ENUM_USER_ROLE.ADMIN),
-(0, validateRequest_1.default)(PharmacyAppointment_validation_1.PharmacyOnAppointmentValidation.updatePharmacyOnAppointment), PharmacyAppointment_controller_1.PharmacyAppointmentController.updatePharmacyAppointment);
-router.delete('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN), PharmacyAppointment_controller_1.PharmacyAppointmentController.deletePharmacyAppointment);
+router.post('/create', (0, auth_1.default)(user_1.ENUM_USER_ROLE.DOCTOR), (0, validateRequest_1.default)(PharmacyAppointment_validation_1.PharmacyOnAppointmentValidation.createPharmacyOnAppointment), PharmacyAppointment_controller_1.PharmacyAppointmentController.createPharmacyAppointment);
+router.patch('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.DOCTOR, user_1.ENUM_USER_ROLE.Staff), (0, validateRequest_1.default)(PharmacyAppointment_validation_1.PharmacyOnAppointmentValidation.updatePharmacyOnAppointment), PharmacyAppointment_controller_1.PharmacyAppointmentController.updatePharmacyAppointment);
+router.delete('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.DOCTOR, user_1.ENUM_USER_ROLE.Staff), PharmacyAppointment_controller_1.PharmacyAppointmentController.deletePharmacyAppointment);
 exports.PharmacyAppointmentRoutes = router;

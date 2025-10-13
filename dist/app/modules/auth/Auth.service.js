@@ -50,8 +50,9 @@ const signUp = (data) => __awaiter(void 0, void 0, void 0, function* () {
 });
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const logIn = (LoginData) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(LoginData);
     const { email, password, role: userRole } = LoginData;
+    const user = yield prisma_js_1.default.admin.findMany();
+    console.log(user, 'this is user');
     let isUserExist;
     if (userRole === 'admin') {
         console.log('here');

@@ -13,11 +13,7 @@ const DiagnosticAppointment_validation_1 = require("./DiagnosticAppointment.vali
 const router = express_1.default.Router();
 router.get('/:id', DiagnosticAppointment_controller_1.DiagnosticAppointmentController.getById);
 router.get('/', DiagnosticAppointment_controller_1.DiagnosticAppointmentController.getAllFromDB);
-router.post('/create', 
-// auth(ENUM_USER_ROLE.ADMIN),
-(0, validateRequest_1.default)(DiagnosticAppointment_validation_1.DiagnosticAppointmentValidation.createDiagnosticAppointment), DiagnosticAppointment_controller_1.DiagnosticAppointmentController.createDiagnosticAppointment);
-router.patch('/:id', 
-// auth(ENUM_USER_ROLE.ADMIN),
-(0, validateRequest_1.default)(DiagnosticAppointment_validation_1.DiagnosticAppointmentValidation.updateDiagnosticAppointment), DiagnosticAppointment_controller_1.DiagnosticAppointmentController.updateDiagnosticAppointment);
-router.delete('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN), DiagnosticAppointment_controller_1.DiagnosticAppointmentController.deleteDiagnosticAppointment);
+router.post('/create', (0, auth_1.default)(user_1.ENUM_USER_ROLE.DOCTOR), (0, validateRequest_1.default)(DiagnosticAppointment_validation_1.DiagnosticAppointmentValidation.createDiagnosticAppointment), DiagnosticAppointment_controller_1.DiagnosticAppointmentController.createDiagnosticAppointment);
+router.patch('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.DOCTOR), (0, validateRequest_1.default)(DiagnosticAppointment_validation_1.DiagnosticAppointmentValidation.updateDiagnosticAppointment), DiagnosticAppointment_controller_1.DiagnosticAppointmentController.updateDiagnosticAppointment);
+router.delete('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.DOCTOR), DiagnosticAppointment_controller_1.DiagnosticAppointmentController.deleteDiagnosticAppointment);
 exports.DiagnosticAppointmentRoutes = router;

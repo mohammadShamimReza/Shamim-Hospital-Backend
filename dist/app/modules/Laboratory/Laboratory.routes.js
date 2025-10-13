@@ -13,9 +13,7 @@ const Laboratory_validation_1 = require("./Laboratory.validation");
 const router = express_1.default.Router();
 router.get('/:id', Laboratory_controller_1.LaboratoryController.getById);
 router.get('/', Laboratory_controller_1.LaboratoryController.getAllFromDB);
-router.post('/create', 
-// auth(ENUM_USER_ROLE.ADMIN),
-(0, validateRequest_1.default)(Laboratory_validation_1.LaboratoryValidation.createLaboratory), Laboratory_controller_1.LaboratoryController.createLaboratory);
+router.post('/create', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN), (0, validateRequest_1.default)(Laboratory_validation_1.LaboratoryValidation.createLaboratory), Laboratory_controller_1.LaboratoryController.createLaboratory);
 router.patch('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN), (0, validateRequest_1.default)(Laboratory_validation_1.LaboratoryValidation.updateLaboratory), Laboratory_controller_1.LaboratoryController.updateLaboratory);
 router.delete('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN), Laboratory_controller_1.LaboratoryController.deleteLaboratory);
 exports.LaboratoryRoutes = router;

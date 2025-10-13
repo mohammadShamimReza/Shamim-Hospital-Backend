@@ -8,4 +8,5 @@ var ENUM_USER_ROLE;
     ENUM_USER_ROLE["USER"] = "patient";
     ENUM_USER_ROLE["Staff"] = "staff";
     ENUM_USER_ROLE["Nuarse"] = "nuarse";
+    ENUM_USER_ROLE["DOCTOR"] = "doctor";
 })(ENUM_USER_ROLE || (exports.ENUM_USER_ROLE = ENUM_USER_ROLE = {}));

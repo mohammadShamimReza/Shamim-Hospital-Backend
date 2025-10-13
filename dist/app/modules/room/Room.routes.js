@@ -13,9 +13,7 @@ const Room_validation_1 = require("./Room.validation");
 const router = express_1.default.Router();
 router.get('/:id', Room_controller_1.RoomController.getById);
 router.get('/', Room_controller_1.RoomController.getAllFromDB);
-router.post('/create', 
-// auth(ENUM_USER_ROLE.ADMIN),
-(0, validateRequest_1.default)(Room_validation_1.RoomValidation.createRoom), Room_controller_1.RoomController.createRoom);
+router.post('/create', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN), (0, validateRequest_1.default)(Room_validation_1.RoomValidation.createRoom), Room_controller_1.RoomController.createRoom);
 router.patch('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN), (0, validateRequest_1.default)(Room_validation_1.RoomValidation.updateRoom), Room_controller_1.RoomController.updateRoom);
 router.delete('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN), Room_controller_1.RoomController.deleteRoom);
 exports.RoomRoutes = router;

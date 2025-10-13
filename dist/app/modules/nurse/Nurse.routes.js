@@ -13,11 +13,7 @@ const Nurse_validation_1 = require("./Nurse.validation");
 const router = express_1.default.Router();
 router.get('/:id', Nurse_controller_1.NurseController.getById);
 router.get('/', Nurse_controller_1.NurseController.getAllFromDB);
-router.post('/create', 
-// auth(ENUM_USER_ROLE.ADMIN),
-(0, validateRequest_1.default)(Nurse_validation_1.NurseValidation.createNurse), Nurse_controller_1.NurseController.createNurse);
-router.patch('/:id', 
-// auth(ENUM_USER_ROLE.ADMIN),
-(0, validateRequest_1.default)(Nurse_validation_1.NurseValidation.updateNurse), Nurse_controller_1.NurseController.updateNurse);
+router.post('/create', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN), (0, validateRequest_1.default)(Nurse_validation_1.NurseValidation.createNurse), Nurse_controller_1.NurseController.createNurse);
+router.patch('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.Nuarse), (0, validateRequest_1.default)(Nurse_validation_1.NurseValidation.updateNurse), Nurse_controller_1.NurseController.updateNurse);
 router.delete('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN), Nurse_controller_1.NurseController.deleteNurse);
 exports.NurseRoutes = router;

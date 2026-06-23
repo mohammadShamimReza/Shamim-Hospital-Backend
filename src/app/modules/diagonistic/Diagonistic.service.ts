@@ -1,5 +1,5 @@
 import { Diagnostic } from '@prisma/client';
-import prisma from '../../../../lib/prisma';
+import { prisma } from '../../../lib/prisma.js';
 
 const createDiagnostic = async (payload: Diagnostic): Promise<Diagnostic> => {
   const result = await prisma.diagnostic.create({ data: payload });

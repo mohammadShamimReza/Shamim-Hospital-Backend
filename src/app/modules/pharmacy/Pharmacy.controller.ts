@@ -1,6 +1,6 @@
-import { Pharmacy } from '@prisma/client';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { Pharmacy } from '../../../generated/prisma/client';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { PharmacyService } from './Pharmacy.service';

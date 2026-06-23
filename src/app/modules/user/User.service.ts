@@ -1,7 +1,5 @@
-import { User } from '@prisma/client';
+import { User } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma';
-
-
 
 const getAllFromDb = async (): Promise<User[]> => {
   const result = await prisma.user.findMany({});

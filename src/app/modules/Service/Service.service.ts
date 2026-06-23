@@ -1,4 +1,4 @@
-import { Service } from '@prisma/client';
+import { Service } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma';
 
 const createService = async (payload: Service): Promise<Service> => {
@@ -7,16 +7,13 @@ const createService = async (payload: Service): Promise<Service> => {
 };
 
 const getAllFromDb = async (): Promise<Service[]> => {
-  const result = await prisma.service.findMany({
-   
-  });
+  const result = await prisma.service.findMany({});
   return result;
 };
 
 const getById = async (id: number): Promise<Service | null> => {
   const result = await prisma.service.findUnique({
     where: { id },
-    
   });
   return result;
 };

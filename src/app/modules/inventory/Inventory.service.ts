@@ -1,4 +1,4 @@
-import { Inventory } from '@prisma/client';
+import { Inventory } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma';
 
 const createInventory = async (payload: Inventory): Promise<Inventory> => {

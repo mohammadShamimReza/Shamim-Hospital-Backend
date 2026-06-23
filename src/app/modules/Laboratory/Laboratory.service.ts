@@ -1,4 +1,4 @@
-import { Laboratory } from '@prisma/client';
+import { Laboratory } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma';
 
 const createLaboratory = async (payload: Laboratory): Promise<Laboratory> => {

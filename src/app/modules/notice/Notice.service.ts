@@ -1,4 +1,4 @@
-import { Notice } from '@prisma/client';
+import { Notice } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma';
 
 const createNotice = async (payload: Notice): Promise<Notice> => {

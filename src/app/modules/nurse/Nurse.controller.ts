@@ -1,9 +1,9 @@
-import { Nurse } from '@prisma/client';
 import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { Nurse } from '../../../generated/prisma/client';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { NurseService } from './Nurse.service';
-import { StatusCodes } from 'http-status-codes';
 
 const createNurse = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;

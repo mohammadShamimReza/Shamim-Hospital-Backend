@@ -1,9 +1,9 @@
-import { Service } from '@prisma/client';
 import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { Service } from '../../../generated/prisma/client';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { ServiceService } from './Service.service';
-import { StatusCodes } from 'http-status-codes';
 
 const createService = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;

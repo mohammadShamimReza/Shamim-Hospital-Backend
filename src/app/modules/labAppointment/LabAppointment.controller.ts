@@ -1,6 +1,6 @@
-import { LabAppointment } from '@prisma/client';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { LabAppointment } from '../../../generated/prisma/client';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { LabAppointmentService } from './LabAppointment.service';

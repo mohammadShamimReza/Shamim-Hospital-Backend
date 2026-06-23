@@ -1,10 +1,9 @@
-
-import { Admin } from '@prisma/client';
 import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { Admin } from '../../../generated/prisma/client';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { AdminService } from './Admin.service';
-import { StatusCodes } from 'http-status-codes';
 
 const createAdmin = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;

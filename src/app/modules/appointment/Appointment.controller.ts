@@ -1,6 +1,6 @@
-import { Appointment } from '@prisma/client';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { Appointment } from '../../../generated/prisma/client';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { AppointmentService } from './Appointment.service';
@@ -37,7 +37,6 @@ const getById = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
-
 
 const getAllAppointmentByUserId = catchAsync(
   async (req: Request, res: Response) => {

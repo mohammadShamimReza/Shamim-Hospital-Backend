@@ -1,4 +1,4 @@
-import { Asset } from '@prisma/client';
+import { Asset } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma';
 
 const createAsset = async (payload: Asset): Promise<Asset> => {

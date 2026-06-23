@@ -1,4 +1,4 @@
-import { Room } from '@prisma/client';
+import { Room } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma';
 
 const createRoom = async (payload: Room): Promise<Room> => {
@@ -10,8 +10,8 @@ const getAllFromDb = async (): Promise<Room[]> => {
   const result = await prisma.room.findMany({
     include: {
       nurses: true,
-      staff: true
-    }
+      staff: true,
+    },
   });
   return result;
 };
@@ -19,7 +19,6 @@ const getAllFromDb = async (): Promise<Room[]> => {
 const getById = async (id: number): Promise<Room | null> => {
   const result = await prisma.room.findUnique({
     where: { id },
-   
   });
   return result;
 };
@@ -33,8 +32,8 @@ const updateRoom = async (
     removeStaff?: number[]; // IDs of staff to remove from the room
   },
 ): Promise<Room> => {
-    const { addNurses, removeNurses, addStaff, removeStaff, ...roomData } =
-      payload;
+  const { addNurses, removeNurses, addStaff, removeStaff, ...roomData } =
+    payload;
 
   const result = await prisma.room.update({
     where: { id },

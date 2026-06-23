@@ -3,7 +3,7 @@ import jwt, { JwtPayload, Secret } from 'jsonwebtoken';
 const createToken = (
   payload: Record<string, unknown>,
   secret: Secret,
-  expireTime: string,
+  expireTime: number,
 ): string => {
   return jwt.sign(payload, secret, {
     expiresIn: expireTime,
@@ -15,8 +15,9 @@ const createResetToken = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   payload: any,
   secret: Secret,
-  expireTime: string,
+  expireTime: number,
 ): string => {
+  jwt.sign(payload, null);
   return jwt.sign(payload, secret, {
     algorithm: 'HS256',
     expiresIn: expireTime,

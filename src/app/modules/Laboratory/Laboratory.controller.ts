@@ -1,6 +1,6 @@
-import { Laboratory } from '@prisma/client';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { Laboratory } from '../../../generated/prisma/client';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { LaboratoryService } from './Laboratory.service';

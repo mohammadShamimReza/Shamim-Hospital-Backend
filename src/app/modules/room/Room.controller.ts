@@ -1,9 +1,9 @@
-import { Room } from '@prisma/client';
 import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { Room } from '../../../generated/prisma/client';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { RoomService } from './Room.service';
-import { StatusCodes } from 'http-status-codes';
 
 const createRoom = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;

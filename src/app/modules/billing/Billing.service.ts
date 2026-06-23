@@ -1,4 +1,4 @@
-import { Billing } from '@prisma/client';
+import { Billing } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma.js';
 
 const createBilling = async (payload: Billing): Promise<Billing> => {

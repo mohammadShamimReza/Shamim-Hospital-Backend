@@ -1,10 +1,9 @@
-import { User } from '@prisma/client';
 import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { User } from '../../../generated/prisma/client';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
-import { StatusCodes } from 'http-status-codes';
 import { userService } from './User.service';
-
 
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   const result = await userService.getAllFromDb();
@@ -53,7 +52,6 @@ const deleteUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const StaffController = {
-
   getAllFromDB,
   getById,
   updateUser,

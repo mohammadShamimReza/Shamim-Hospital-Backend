@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { Secret } from 'jsonwebtoken';
 import config from '../../../config/index';
 import ApiError from '../../../errors/ApiError';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
@@ -51,7 +50,7 @@ const me = catchAsync(async (req: Request, res: Response) => {
   }
   const verifiedUser = jwtHelpers.verifyToken(
     token,
-    config.jwt.secret as Secret,
+    config.jwt.secret as string,
   );
 
   const result = await AuthService.me(verifiedUser);
@@ -78,7 +77,7 @@ const changePassword = catchAsync(async (req: Request, res: Response) => {
 });
 
 const forgotPass = catchAsync(async (req: Request, res: Response) => {
-  console.log(req.body, 'this is forgotPass')
+  console.log(req.body, 'this is forgotPass');
   await AuthService.forgotPass(req.body);
 
   sendResponse(res, {

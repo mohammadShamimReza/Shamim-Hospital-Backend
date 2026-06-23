@@ -1,10 +1,9 @@
-
-import { Notice } from '@prisma/client';
 import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { Notice } from '../../../generated/prisma/client';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { NoticeService } from './Notice.service';
-import { StatusCodes } from 'http-status-codes';
 
 const createNotice = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;

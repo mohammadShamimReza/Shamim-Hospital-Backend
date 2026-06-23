@@ -6,10 +6,10 @@ import { ZodError } from 'zod';
 import config from '../../config';
 import ApiError from '../../errors/ApiError';
 
-import { Prisma } from '../../../generated/prisma/client';
 import handleClientError from '../../errors/handleClientError';
 import handleValidationError from '../../errors/handleValidationError';
 import handleZodError from '../../errors/handleZodError';
+import { Prisma } from '../../generated/prisma/client';
 import { IGenericErrorMessage } from '../../interfaces/error';
 
 const globalErrorHandler: ErrorRequestHandler = (

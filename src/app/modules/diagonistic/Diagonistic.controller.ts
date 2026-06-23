@@ -1,6 +1,6 @@
-import { Diagnostic } from '@prisma/client';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { Diagnostic } from '../../../generated/prisma/client';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { DiagnosticService } from './Diagonistic.service';

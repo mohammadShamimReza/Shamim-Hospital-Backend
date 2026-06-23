@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 
-import { User } from '@prisma/client';
 
 import { JwtPayload, Secret } from 'jsonwebtoken';
 import config from '../../../config/index.js';
 import ApiError from '../../../errors/ApiError.js';
+import { User } from '../../../generated/prisma/client.js';
 import { jwtHelpers } from '../../../helpers/jwtHelpers.js';
 import { prisma } from '../../../lib/prisma.js';
 import { IChangePassword } from './auth.interface.js';
@@ -42,12 +42,12 @@ const signUp = async (data: User) => {
   const accessToken = jwtHelpers.createToken(
     { email, role, id },
     config.jwt.secret as Secret,
-    config.jwt.expires_in as string,
+    config.jwt.expires_in as any,
   );
   const refreshToken = jwtHelpers.createToken(
     { email, password, id },
     config.jwt.refresh_secret as Secret,
-    config.jwt.refresh_expires_in as string,
+    config.jwt.refresh_expires_in as any,
   );
 
   return {
@@ -158,12 +158,12 @@ const logIn = async (LoginData: {
   const accessToken = jwtHelpers.createToken(
     { email, role, id },
     config.jwt.secret as Secret,
-    config.jwt.expires_in as string,
+    config.jwt.expires_in as any,
   );
   const refreshToken = jwtHelpers.createToken(
     { email, password, id },
     config.jwt.refresh_secret as Secret,
-    config.jwt.refresh_expires_in as string,
+    config.jwt.refresh_expires_in as any,
   );
 
   return {
@@ -253,7 +253,7 @@ const forgotPass = async ({ email, role }: { email: string; role: string }) => {
   const passResetToken = await jwtHelpers.createResetToken(
     { id: isUserExist.id, role: isUserExist.role },
     config.jwt.secret as string,
-    '50m',
+    50,
   );
 
   const resetLink: string = config.resetlink + `?token=${passResetToken}`;

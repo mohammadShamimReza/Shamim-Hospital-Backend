@@ -1,9 +1,9 @@
-import { Staff } from '@prisma/client';
 import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { Staff } from '../../../generated/prisma/client';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { StaffService } from './Staff.service';
-import { StatusCodes } from 'http-status-codes';
 
 const createStaff = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;

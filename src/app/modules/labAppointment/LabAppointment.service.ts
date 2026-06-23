@@ -1,4 +1,4 @@
-import { LabAppointment } from '@prisma/client';
+import { LabAppointment } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma';
 
 const createLabAppointment = async (

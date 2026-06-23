@@ -1,4 +1,4 @@
-import { Staff } from '@prisma/client';
+import { Staff } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma';
 
 const createStaff = async (payload: Staff): Promise<Staff> => {
@@ -18,7 +18,7 @@ const getById = async (id: number): Promise<Staff | null> => {
     },
     include: {
       room: true,
-    }
+    },
   });
   return result;
 };

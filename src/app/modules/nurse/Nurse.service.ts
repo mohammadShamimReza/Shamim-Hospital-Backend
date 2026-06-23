@@ -1,4 +1,4 @@
-import { Nurse } from '@prisma/client';
+import { Nurse } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma';
 
 const createNurse = async (payload: Nurse): Promise<Nurse> => {
@@ -18,7 +18,7 @@ const getById = async (id: number): Promise<Nurse | null> => {
     },
     include: {
       room: true,
-    }
+    },
   });
   return result;
 };

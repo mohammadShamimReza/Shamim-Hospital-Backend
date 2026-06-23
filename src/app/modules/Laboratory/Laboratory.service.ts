@@ -1,5 +1,5 @@
 import { Laboratory } from '@prisma/client';
-import prisma from '../../../shared/prisma';
+import prisma from '../../../../lib/prisma';
 
 const createLaboratory = async (payload: Laboratory): Promise<Laboratory> => {
   const result = await prisma.laboratory.create({ data: payload });

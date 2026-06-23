@@ -1,5 +1,5 @@
 import { Admin } from '@prisma/client';
-import prisma from '../../../shared/prisma';
+import prisma from '../../../../lib/prisma';
 
 const createAdmin = async (payload: Admin): Promise<Admin> => {
   const result = await prisma.admin.create({ data: payload });

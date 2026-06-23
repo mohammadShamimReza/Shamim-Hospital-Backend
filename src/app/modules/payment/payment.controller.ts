@@ -2,7 +2,7 @@
 
 const { v4: uuidv4 } = require('uuid');
 import { Request, Response } from 'express';
-import prisma from '../../../shared/prisma';
+import prisma from '../../../../lib/prisma';
 import { paymentService } from './payment.service';
 
 const frontend_url = process.env.FRONTEND_URL;

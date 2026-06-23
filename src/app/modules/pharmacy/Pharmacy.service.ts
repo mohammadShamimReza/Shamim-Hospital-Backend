@@ -1,5 +1,5 @@
 import { Pharmacy } from '@prisma/client';
-import prisma from '../../../shared/prisma';
+import prisma from '../../../../lib/prisma';
 
 const createPharmacy = async (payload: Pharmacy): Promise<Pharmacy> => {
   const result = await prisma.pharmacy.create({ data: payload });

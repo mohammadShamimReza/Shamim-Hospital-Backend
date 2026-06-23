@@ -1,5 +1,5 @@
 import { Billing } from '@prisma/client';
-import prisma from '../../../shared/prisma';
+import prisma from '../../../../lib/prisma';
 
 const createBilling = async (payload: Billing): Promise<Billing> => {
   const result = await prisma.billing.create({ data: payload });

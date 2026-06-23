@@ -1,5 +1,5 @@
 import { Service } from '@prisma/client';
-import prisma from '../../../shared/prisma';
+import prisma from '../../../../lib/prisma';
 
 const createService = async (payload: Service): Promise<Service> => {
   const result = await prisma.service.create({ data: payload });

@@ -1,5 +1,5 @@
 import { Inventory } from '@prisma/client';
-import prisma from '../../../shared/prisma';
+import prisma from '../../../../lib/prisma';
 
 const createInventory = async (payload: Inventory): Promise<Inventory> => {
   const result = await prisma.inventory.create({ data: payload });

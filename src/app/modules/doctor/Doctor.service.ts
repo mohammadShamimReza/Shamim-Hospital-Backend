@@ -1,5 +1,5 @@
 import { Doctor } from "@prisma/client";
-import prisma from "../../../shared/prisma";
+import prisma from '../../../../lib/prisma';
 
 const createDoctor = async (payload: Doctor): Promise<Doctor> => {
   const result = await prisma.doctor.create({ data: payload });

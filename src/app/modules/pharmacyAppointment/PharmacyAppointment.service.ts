@@ -1,5 +1,5 @@
 import { PharmacyOnAppointment } from '@prisma/client';
-import prisma from '../../../shared/prisma';
+import prisma from '../../../../lib/prisma';
 
 const createPharmacyAppointment = async (
   payload: PharmacyOnAppointment,

@@ -3,10 +3,10 @@
 import { User } from '@prisma/client';
 
 import { JwtPayload, Secret } from 'jsonwebtoken';
+import prisma from '../../../../lib/prisma.js';
 import config from '../../../config/index.js';
 import ApiError from '../../../errors/ApiError.js';
 import { jwtHelpers } from '../../../helpers/jwtHelpers.js';
-import prisma from '../../../shared/prisma.js';
 import { IChangePassword } from './auth.interface.js';
 import { sendEmail } from './sendResetMail.js';
 
